@@ -1,0 +1,17 @@
+{
+    "newDocs": {
+        "id": 1,
+        "header": "Get started",
+        "greetings": "Hey maker, welcome to ShipFast 👋",
+        "paragraph": [
+            {
+                "id": 1,
+                "text": "Here's a quick overview of the boilerplate. Follow along to get your app up and running."
+            },
+            {
+                "id": 2,
+                "text": "<a class=\"text-white underline cursor-pointer\" href=\"https://www.facebook.com\" >AboutUs</a><p class=\"text-red-600\">developing and supporting complex IT solutions. Touching millions of lives world wide by bringing in innovative technology.</p>"
+            }
+        ]
+    }
+}
