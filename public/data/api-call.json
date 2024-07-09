@@ -1,0 +1,172 @@
+{
+  "nextAuth": {
+    "title": "Tutorials > API call",
+    "next_complexText_1": [
+      {
+        "type": "text",
+        "content": "Any file named "
+      },
+      {
+        "type": "highlightedText",
+        "content": "/route.js"
+      },
+      {
+        "type": "text",
+        "content": "in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app/api"
+      },
+      {
+        "type": "text",
+        "content": "folder is an API endpoint. Use the helper"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/libs/api.js"
+      },
+      {
+        "type": "text",
+        "content": "(axios instance with interceptors) to simplify API calls:"
+      }
+    ],
+    "next_plainText_1": "Automatically display error messages",
+    "next_plainText_2": "Redirect to login page upon error 401",
+    "next_complexText_2": [
+      {
+        "type": "text",
+        "content": "Add"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api"
+      },
+      {
+        "type": "text",
+        "content": "as a base URL:"
+      },
+      {
+        "type": "lineThrouh",
+        "content": "/api/user/posts"
+      },
+      {
+        "type": "text",
+        "content": "as a base URL:"
+      },
+      {
+        "type": "text",
+        "content": "→ /user/posts"
+      }
+    ],
+    "next_api_subTitle": "Protected API calls",
+    "next_plainText_3": "NextAuth automatically handles the authentication with cookies. Just make a normal API call on the front-end like this:",
+    "next_codeSnippet_1": {
+      "title": "/app/user-profile/page.js",
+      "codes": "\"use client\"\n          import { useState } from \"react\";\n          import apiClient from \"@/libs/api\";\n\n          const UserProfile = () => {\n            const [isLoading, setIsLoading] = useState(false);\n\n            const saveUser = async () => {\n              setIsLoading(true);\n\n              try {\n                const { data } = await apiClient.post(\"/user\", {\n                  email: \"new@gmail.com\",\n                });\n\n                console.log(data);\n              } catch (e) {\n                console.error(e?.message);\n              } finally {\n                setIsLoading(false);\n              }\n            };\n\n            return (\n              <button className=\"btn btn-primary\" onClick={() => saveUser()}>\n                {isLoading && (\n                  <span className=\"loading loading-spinner loading-sm\"></span>\n                )}\n                Save\n              </button>\n            );\n          };\n\n          export default UserProfile;\n            "
+    },
+    "next_complexText_3": [
+      {
+        "type": "text",
+        "content": "In the backend, we get the session and we can use it to retrieve the user from the database. You have to"
+      },
+      {
+        "type": "underlinedText",
+        "content": "configure the database"
+      },
+      {
+        "type": "text",
+        "content": "first. The API file should look like this:"
+      }
+    ],
+    "next_codeSnippet_2": {
+      "title": "/app/api/user/route.js",
+      "codes": "import { NextResponse } from \"next/server\";\n        import { getServerSession } from \"next-auth/next\";\n        import { authOptions } from \"@/libs/next-auth\";\n        import connectMongo from \"@/libs/mongoose\";\n        import User from \"@/models/User\";\n\n        export async function POST(req) {\n          const session = await getServerSession(authOptions);\n\n          if (session) {\n            await connectMongo();\n\n            const { id } = session.user;\n\n            const body = await req.json();\n\n            if (!body.email) {\n              return NextResponse.json({ error: \"Email is required\" }, { status: 400 });\n            }\n\n            try {\n              const user = await User.findById(id);\n\n              if (!user) {\n                return NextResponse.json({ error: \"User not found\" }, { status: 404 });\n              }\n\n              user.email = body.email;\n              await user.save();\n\n              return NextResponse.json({ data: user }, { status: 200 });\n            } catch (e) {\n              console.error(e);\n              return NextResponse.json(\n                { error: \"Something went wrong\" },\n                { status: 500 }\n              );\n            }\n          } else {\n            // Not Signed in\n            NextResponse.json({ error: \"Not signed in\" }, { status: 401 });\n          }\n        }\n\n            "
+    }
+  },
+  "supabase": {
+    "title": "Tutorials > API call",
+    "supabase_complexText_1": [
+      {
+        "type": "text",
+        "content": "Any file named "
+      },
+      {
+        "type": "highlightedText",
+        "content": "/route.js"
+      },
+      {
+        "type": "text",
+        "content": "in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app/api"
+      },
+      {
+        "type": "text",
+        "content": "folder is an API endpoint. Use the helper"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/libs/api.js"
+      },
+      {
+        "type": "text",
+        "content": "(axios instance with interceptors) to simplify API calls:"
+      }
+    ],
+    "supabase_plainText_1": "Automatically display error messages",
+    "supabase_plainText_2": "Redirect to login page upon error 401",
+    "supabase_complexText_2": [
+      {
+        "type": "text",
+        "content": "Add"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api"
+      },
+      {
+        "type": "text",
+        "content": "as a base URL:"
+      },
+      {
+        "type": "lineThrouh",
+        "content": "/api/user/posts"
+      },
+      {
+        "type": "text",
+        "content": "as a base URL:"
+      },
+      {
+        "type": "text",
+        "content": "→ /user/posts"
+      }
+    ],
+    "supabase_api_subTitle": "Protected API calls",
+    "supabase_plainText_3": "Supabase automatically handles the authentication with cookies. Just make a normal API call on the front-end like this:",
+    "supabase_codeSnippet_1": {
+      "title": "/app/user-profile/page.js",
+      "codes": "\"use client\"\n\nimport { useState } from \"react\";\nimport apiClient from \"@/libs/api\";\n\nconst UserProfile = () => {\n  const [isLoading, setIsLoading] = useState(false);\n\n  const saveUser = async () => {\n    setIsLoading(true);\n\n    try {\n      const { data } = await apiClient.post(\"/user\", {\n        email: \"new@gmail.com\",\n      });\n\n      console.log(data);\n    } catch (e) {\n      console.error(e?.message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return (\n    <button className=\"btn btn-primary\" onClick={() => saveUser()}>\n      {isLoading && (\n        <span className=\"loading loading-spinner loading-sm\"></span>\n      )}\n      Save\n    </button>\n  );\n};\n\nexport default UserProfile;\n\n            "
+    },
+    "supabase_complexText_3": [
+      {
+        "type": "text",
+        "content": "In the backend, we get the session and we can use it to retrieve the user from the database. You have to"
+      },
+      {
+        "type": "underlinedText",
+        "content": "configure the database"
+      },
+      {
+        "type": "text",
+        "content": "first. The API file should look like this:"
+      }
+    ],
+    "supabase_codeSnippet_2": {
+      "title": "/app/api/user/route.js",
+      "codes": "import { createRouteHandlerClient } from \"@supabase/auth-helpers-nextjs\";\n        import { NextResponse } from \"next/server\";\n        import { cookies } from \"next/headers\";\n\n        export const dynamic = \"force-dynamic\";\n\n        export async function POST(req) {\n          const supabase = createRouteHandlerClient({ cookies });\n          const { data } = await supabase.auth.getSession();\n          const { session } = data;\n\n          if (session) {\n            const body = await req.json();\n\n            if (!body.email) {\n              return NextResponse.json({ error: \"Email is required\" }, { status: 400 });\n            }\n\n            try {\n              // This call will fail if you haven't created a table named \"users\" in your database\n              const { data } = await supabase\n                .from(\"users\")\n                .insert({ email: body.email })\n                .select();\n\n              return NextResponse.json({ data }, { status: 200 });\n            } catch (e) {\n              console.error(e);\n              return NextResponse.json(\n                { error: \"Something went wrong\" },\n                { status: 500 }\n              );\n            }\n          } else {\n            // Not Signed in\n            NextResponse.json({ error: \"Not signed in\" }, { status: 401 });\n          }\n        }\n            "
+    }
+  }
+}

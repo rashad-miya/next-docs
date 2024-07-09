@@ -1,0 +1,464 @@
+{
+  "stripe": {
+    "title": "Features > Payments",
+    "stripe_lifecycle_image": {
+      "image_url": "https://shipfa.st/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstripe_helper.3c27ba9d.png&w=1920&q=75",
+      "bottom_text": "How ShipFast handles Stripe subscription lifecycle"
+    },
+    "payments_subTitle": "setup",
+    "stripe_complexText_1": [
+      {
+        "type": "text",
+        "content": "1. Create a new account on "
+      },
+      {
+        "type": "underlinedText",
+        "content": "Stripe"
+      },
+      {
+        "type": "text",
+        "content": "and activate payments (boring, I know.. see you in a bit!)"
+      }
+    ],
+    "stripe_plainText_1": "2. In your [Settings], [Public Details], add your website URL",
+    "stripe_plainText_2": "3. In your [Settings], [Branding], add your logo & colors",
+    "stripe_plainText_3": "4. In your [Settings], [Customer Emails], turn on emails for successful payments & refunds",
+    "stripe_plainText_4": "5. In your [Settings], [Customer Portal], activate link to customer portal (in case you need later)",
+    "stripe_plainText_5": "6. In the search box, type 'rules' and click [Fraud Prevention > Rules] , make sure the first 3DS rule is enabled. I also turn on the second one (recommended). Make sure to block payments if CVC fails (check below)",
+    "stripe_plainText_6": "7. Turn ON Test Mode",
+    "stripe_complexText_2": [
+      {
+        "type": "text",
+        "content": "8. Create a new product and copy the price ID (price_1ju5GD464564) in "
+      },
+      {
+        "type": "highlightedText",
+        "content": "config.stripe.plans[0].priceId"
+      },
+      {
+        "type": "text",
+        "content": "in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "config.js"
+      },
+      {
+        "type": "text",
+        "content": "file ."
+      }
+    ],
+    "stripe_complexText_3": [
+      {
+        "type": "text",
+        "content": "9. In your [Developers], copy your public & private keys and add them to "
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_SECRET_KEY"
+      },
+      {
+        "type": "text",
+        "content": "&"
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_PUBLIC_KEY"
+      },
+      {
+        "type": "text",
+        "content": "in"
+      },
+      {
+        "type": "text",
+        "content": ".env.local"
+      }
+    ],
+    "stripe_plainText_7": "10. To set up the webhook locally, follow the steps in [Developers], [Webhook], [Test in local environment]. After login to Stripe CLI, use this command to forward webhook events to our API:",
+    "stripe_codeSnippet_1": {
+      "title": "terminal",
+      "codes": "\n            stripe listen --forward-to localhost:3000/api/webhook/stripe\n            "
+    },
+    "stripe_complexText_4": [
+      {
+        "type": "text",
+        "content": "Copy the signing secret and add it to"
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_WEBHOOK_SECRET"
+      },
+      {
+        "type": "text",
+        "content": "in"
+      },
+      {
+        "type": "highlightedText",
+        "content": "env.local"
+      }
+    ],
+    "stripe_highlightedNote_1": [
+      {
+        "type": "white_bold",
+        "content": "Going to production?"
+      },
+      {
+        "type": "break",
+        "content": ""
+      },
+      {
+        "type": "blockText",
+        "content": "1. Turn OFF Test Mode in your Stripe Dashboard"
+      },
+      {
+        "type": "text",
+        "content": "2. In your [Developers], copy your public & private keys and add them to"
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_SECRET_KEY"
+      },
+      {
+        "type": "text",
+        "content": "&"
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_PUBLIC_KEY"
+      },
+      {
+        "type": "text",
+        "content": "in your production environment variables."
+      },
+      {
+        "type": "blockText",
+        "content": "3. In your [Developers], [Webhook], [Add Enpoint]. Set your domain +"
+      },
+      {
+        "type": "text",
+        "content": "/api/webhook/stripe. Select [checkout.session.completed] event (or more if needed). Copy the signing secret and add it to"
+      },
+      {
+        "type": "highlightedText",
+        "content": "STRIPE_WEBHOOK_SECRET"
+      },
+      {
+        "type": "text",
+        "content": "in your production environment variables."
+      },
+      {
+        "type": "blockText",
+        "content": "4. Optional: In [Balance], [Manage Payouts], set a specific date of the month to receive your payouts (I use the 10th of each month)"
+      },
+      {
+        "type": "blockText",
+        "content": "5. Optional: In [Settings], [Customers Emails], activate emails for successful payments & refunds"
+      }
+    ],
+    "stripe_checkout_subTitle": "Create a checkout",
+    "stripe_complexText_5": [
+      {
+        "type": "text",
+        "content": "From the front-end, use the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "ButtonCheckout"
+      },
+      {
+        "type": "text",
+        "content": "to automatically create a checkout session (one-time payment or subscription)"
+      }
+    ],
+    "stripe_webhook_subTitle": "Stripe webhooks & subscription handling",
+    "stripe_complexText_6": [
+      {
+        "type": "text",
+        "content": "Our API listens to Stripe selected webhooks events & update the user accordingly. It turns boolean"
+      },
+      {
+        "type": "highlightedText",
+        "content": "hasAccess"
+      },
+      {
+        "type": "text",
+        "content": "( or"
+      },
+      {
+        "type": "highlightedText",
+        "content": "has_access"
+      },
+      {
+        "type": "text",
+        "content": "in Supabase) to true/false based on whether the user should have access to a paid resource or not."
+      },
+      {
+        "type": "blockText",
+        "content": "You can add your own business logic to the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api/webhook/stripe"
+      },
+      {
+        "type": "text",
+        "content": "API endpoint (add credits to a user, send email with a paid e-book etc.)"
+      }
+    ],
+    "stripe_redirect_image_1": {
+      "image_url": "https://shipfa.st/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbyedispute.acbdb5af.jpg&w=1920&q=75",
+      "link": "https://byedispute.com/?ref=shipfast_docs",
+      "headText": "Don't get banned from Stripe before getting your first customer",
+      "text": "Prevent disputes before they happen with ByeDispute"
+    },
+    "stripe_redirect_image_2": {
+      "image_url": "https://shipfa.st/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzenvoice.2d9f9d95.jpg&w=1920&q=75",
+      "link": "https://zenvoice.io/?ref=shipfast_docs",
+      "headText": "Tired of managing Stripe invoices?",
+      "text": "Let your customers generate, edit, and download Stripe invoices, so you don’t have to."
+    }
+  },
+  "lemon": {
+    "title": "Features > Payments",
+    "lemon_highlightedNote_1": [
+      {
+        "type": "text",
+        "content": "ShipFast uses Stripe by default. But no worries! This tutorial will help you set up Lemon Squeezy in minutes. Just a few copy paste 😌"
+      }
+    ],
+    "payments_subTitle": "setup",
+    "lemon_plainText_1": "1. Install the package",
+    "lemon_codeSnippet_1": {
+      "title": "terminal",
+      "codes": "\n            npm install @lemonsqueezy/lemonsqueezy.js\n\n            "
+    },
+    "lemon_plainText_2": "2. Add the environment variables",
+    "lemon_codeSnippet_2": {
+      "title": "terminal",
+      "codes": "\n        LEMONSQUEEZY_API_KEY=\n        LEMONSQUEEZY_STORE_ID=\n        LEMONSQUEEZY_SIGNING_SECRET=\n            "
+    },
+    "lemon_complexText_1": [
+      {
+        "type": "text",
+        "content": "Create a new API key from "
+      },
+      {
+        "type": "highlightedText",
+        "content": "Settings > API"
+      }
+    ],
+    "lemon_complexText_2": [
+      {
+        "type": "text",
+        "content": "Find your store ID from "
+      },
+      {
+        "type": "highlightedText",
+        "content": "Settings > Stores"
+      }
+    ],
+    "lemon_highlightedNote_2": [
+      {
+        "type": "text",
+        "content": "Just copy the number, without the #"
+      }
+    ],
+    "lemon_complexText_3": [
+      {
+        "type": "text",
+        "content": "Generate a random string for the signing secret"
+      }
+    ],
+    "lemon_complexText_4": [
+      {
+        "type": "text",
+        "content": "3. Create a new product from"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Store > Product."
+      },
+      {
+        "type": "white_bold",
+        "content": "Make sure to add a variant, even if you plan to have a single price."
+      }
+    ],
+    "lemon_highlightedNote_3": [
+      {
+        "type": "text",
+        "content": "You can get the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "variantId"
+      },
+      {
+        "type": "text",
+        "content": "by selecting the variant and then copying the number from the URL. It follows the convention:"
+      },
+      {
+        "type": "highlightedText",
+        "content": "https://app.lemonsqueezy.com/product/[productId]/variants/[variantId]"
+      }
+    ],
+    "lemon_plainText_3": "4. Update your config",
+    "lemon_codeSnippet_3": {
+      "title": "config.js",
+      "codes": "lemonsqueezy: {\n      // Create a product and add multiple variants via your Lemon Squeezy dashboard, then add them here. You can add as many plans as you want, just make sure to add the variantId.\n      plans: [\n      {\n        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)\n        variantId:\n          process.env.NODE_ENV === \"development\"\n            ? \"123456\"\n            : \"456789\",\n        //  REQUIRED - Name of the plan, displayed on the pricing page\n        name: \"Starter\",\n        // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others.\n        description: \"Perfect for small projects\",\n        // The price you want to display, the one user will be charged on Lemon Squeezy\n        price: 99,\n        // If you have an anchor price (i.e. $149) that you want to display crossed out, put it here. Otherwise, leave it empty.\n        priceAnchor: 149,\n        features: [\n          {\n            name: \"NextJS boilerplate\",\n          },\n          { name: \"User oauth\" },\n          { name: \"Database\" },\n          { name: \"Emails\" },\n        ],\n      },\n      {\n        variantId:\n          process.env.NODE_ENV === \"development\"\n            ? \"123456\"\n            : \"456789\",\n        // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true.\n        isFeatured: true,\n        name: \"Advanced\",\n        description: \"You need more power\",\n        price: 149,\n        priceAnchor: 299,\n        features: [\n        {\n          name: \"NextJS boilerplate\",\n        },\n        { name: \"User oauth\" },\n        { name: \"Database\" },\n        { name: \"Emails\" },\n        { name: \"1 year of updates\" },\n        { name: \"24/7 support\" },\n      ],\n    },\n  ],\n},\n            "
+    },
+    "lemon_complexText_5": [
+      {
+        "type": "text",
+        "content": "5. [Skip if using JavaScript] If you’re using TypeScript, add the following inside the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "ConfigProps"
+      },
+      {
+        "type": "text",
+        "content": "interface"
+      }
+    ],
+    "lemon_codeSnippet_4": {
+      "title": "types/config.ts",
+      "codes": "\n            lemonsqueezy: {\n        plans: {\n            isFeatured?: boolean;\n            variantId: string;\n            name: string;\n            description?: string;\n            price: number;\n            priceAnchor?: number;\n            features: {\n            name: string;\n            }[];\n        }[];\n        };"
+    },
+    "lemon_complexText_6": [
+      {
+        "type": "text",
+        "content": "6. Update your"
+      },
+      {
+        "type": "highlightedText",
+        "content": "user"
+      },
+      {
+        "type": "text",
+        "content": "file model"
+      }
+    ],
+    "lemon_codeSnippet_5": {
+      "title": "models/user.js",
+      "codes": "\n            import mongoose from \"mongoose\";\nimport toJSON from \"./plugins/toJSON\";\n\n// USER SCHEMA\nconst userSchema = new mongoose.Schema(\n  {\n    name: {\n      type: String,\n      trim: true,\n    },\n    email: {\n      type: String,\n      trim: true,\n      lowercase: true,\n      private: true,\n    },\n    image: {\n      type: String,\n    },\n    // Used in the Stripe webhook to identify the user in Stripe and later create Customer Portal or prefill user credit card details\n    customerId: {\n      type: String,\n    },\n    // Used in the Stripe webhook. should match a plan in config.js file.\n    variantId: {\n      type: String,\n    },\n    // Used to determine if the user has access to the product—it's turn on/off by the Stripe webhook\n    hasAccess: {\n      type: Boolean,\n      default: false,\n    },\n  },\n  {\n    timestamps: true,\n    toJSON: { virtuals: true },\n  }\n);\n\n// add plugin that converts mongoose to json\nuserSchema.plugin(toJSON);\n\nexport default mongoose.models.User || mongoose.model(\"User\", userSchema);\n        };"
+    },
+    "lemon_complexText_7": [
+      {
+        "type": "text",
+        "content": "7. Update your"
+      },
+      {
+        "type": "highlightedText",
+        "content": "Pricing"
+      },
+      {
+        "type": "text",
+        "content": "compoment"
+      }
+    ],
+    "lemon_codeSnippet_6": {
+      "title": "components/Pricing.js",
+      "codes": "\n            import config from \"@/config\";\nimport ButtonCheckout from \"./ButtonCheckout\";\n\n// <Pricing/> displays the pricing plans for your app\n// It's your Lemon Squeezy config in config.js (config.lemonsqueezy.plans[]) that will be used to display the plans\n// <ButtonCheckout /> renders a button that will redirect the user to Lemon Squeezy checkout called the /api/lemonsqueezy/create-checkout API endpoint with the correct variantId\n\nconst Pricing = () => {\n  return (\n    <section className=\"bg-base-200 overflow-hidden\" id=\"pricing\">\n      <div className=\"py-24 px-8 max-w-5xl mx-auto\">\n        <div className=\"flex flex-col text-center w-full mb-20\">\n          <p className=\"font-medium text-primary mb-8\">Pricing</p>\n          <h2 className=\"font-bold text-3xl lg:text-5xl tracking-tight\">\n            Save hours of repetitive code and ship faster!\n          </h2>\n        </div>\n\n        <div className=\"relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8\">\n          {config.lemonsqueezy.plans.map((plan) => (\n            <div key={plan.variantId} className=\"relative w-full max-w-lg\">\n              {plan.isFeatured && (\n                <div className=\"absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20\">\n                  <span\n                    className={'badge text-xs text-primary-content font-semibold border-0 bg-primary'}\n                  >\n                    POPULAR\n                  </span>\n                </div>\n              )}\n\n              {plan.isFeatured && (\n                <div\n                  className={'absolute -inset-[1px] rounded-[9px] bg-primary z-10'}\n                ></div>\n              )}\n\n              <div className=\"relative flex flex-col h-full gap-5 lg:gap-8 z-10 bg-base-100 p-8 rounded-lg\">\n                <div className=\"flex justify-between items-center gap-4\">\n                  <div>\n                    <p className=\"text-lg lg:text-xl font-bold\">{plan.name}</p>\n                    {plan.description && (\n                      <p className=\"text-base-content/80 mt-2\">\n                        {plan.description}\n                      </p>\n                    )}\n                  </div>\n                </div>\n                <div className=\"flex gap-2\">\n                  {plan.priceAnchor && (\n                    <div className=\"flex flex-col justify-end mb-[4px] text-lg \">\n                      <p className=\"relative\">\n                        <span className=\"absolute bg-base-content h-[1.5px] inset-x-0 top-[53%]\"></span>\n                        <span className=\"text-base-content/80\">\n                          {plan.priceAnchor}\n                        </span>\n                      </p>\n                    </div>\n                  )}\n                  <p className={'text-5xl tracking-tight font-extrabold'}>\n                    {plan.price}\n                  </p>\n                  <div className=\"flex flex-col justify-end mb-[4px]\">\n                    <p className=\"text-xs text-base-content/60 uppercase font-semibold\">\n                      USD\n                    </p>\n                  </div>\n                </div>\n                {plan.features && (\n                  <ul className=\"space-y-2.5 leading-relaxed text-base flex-1\">\n                    {plan.features.map((feature, i) => (\n                      <li key={i} className=\"flex items-center gap-2\">\n                        <svg\n                          xmlns=\"http://www.w3.org/2000/svg\"\n                          viewBox=\"0 0 20 20\"\n                          fill=\"currentColor\"\n                          className=\"w-[18px] h-[18px] opacity-80 shrink-0\"\n                        >\n                          <path\n                            fillRule=\"evenodd\"\n                            d=\"M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z\"\n                            clipRule=\"evenodd\"\n                          />\n                        </svg>\n\n                        <span>{feature.name} </span>\n                      </li>\n                    ))}\n                  </ul>\n                )}\n                <div className=\"space-y-2\">\n                  <ButtonCheckout variantId={plan.variantId} />\n\n                  <p className=\"flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative\">\n                    Pay once. Access forever.\n                  </p>\n                </div>\n              </div>\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport default Pricing;\n            "
+    },
+    "lemon_complexText_8": [
+      {
+        "type": "text",
+        "content": "8. Update your"
+      },
+      {
+        "type": "highlightedText",
+        "content": "ButtonCheckout"
+      },
+      {
+        "type": "text",
+        "content": "compoment"
+      }
+    ],
+    "lemon_codeSnippet_7": {
+      "title": "components/ButtonCheckout.js",
+      "codes": "\n            \"use client\";\n\nimport { useState } from \"react\";\nimport apiClient from \"@/libs/api\";\nimport config from \"@/config\";\n\n// This component is used to create Lemon Squeezy Checkout Sessions\n// It calls the /api/lemonsqueezy/create-checkout route with the variantId and redirectUrl\nconst ButtonCheckout = ({ variantId }) => {\n  const [isLoading, setIsLoading] = useState(false);\n\n  const handlePayment = async () => {\n    setIsLoading(true);\n\n    try {\n      const { url }: { url: string } = await apiClient.post(\n        \"/lemonsqueezy/create-checkout\",\n        {\n          variantId,\n          redirectUrl: window.location.href,\n        }\n      );\n\n      window.location.href = url;\n    } catch (e) {\n      console.error(e);\n    }\n\n    setIsLoading(false);\n  };\n\n  return (\n    <button\n      className=\"btn btn-primary btn-block group\"\n      onClick={() => handlePayment()}\n    >\n      {isLoading ? (\n        <span className=\"loading loading-spinner loading-xs\"></span>\n      ) : (\n        <svg\n          className=\"w-5 h-5 fill-primary-content group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200\"\n          viewBox=\"0 0 375 509\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path d=\"M249.685 14.125C249.685 11.5046 248.913 8.94218 247.465 6.75675C246.017 4.57133 243.957 2.85951 241.542 1.83453C239.126 0.809546 236.463 0.516683 233.882 0.992419C231.301 1.46815 228.917 2.69147 227.028 4.50999L179.466 50.1812C108.664 118.158 48.8369 196.677 2.11373 282.944C0.964078 284.975 0.367442 287.272 0.38324 289.605C0.399039 291.938 1.02672 294.226 2.20377 296.241C3.38082 298.257 5.06616 299.929 7.09195 301.092C9.11775 302.255 11.4133 302.867 13.75 302.869H129.042V494.875C129.039 497.466 129.791 500.001 131.205 502.173C132.62 504.345 134.637 506.059 137.01 507.106C139.383 508.153 142.01 508.489 144.571 508.072C147.131 507.655 149.516 506.503 151.432 504.757L172.698 485.394C247.19 417.643 310.406 338.487 359.975 250.894L373.136 227.658C374.292 225.626 374.894 223.327 374.882 220.99C374.87 218.653 374.243 216.361 373.065 214.341C371.887 212.322 370.199 210.646 368.17 209.482C366.141 208.318 363.841 207.706 361.5 207.707H249.685V14.125Z\" />\n        </svg>\n      )}\n      Get {config?.appName}\n    </button>\n  );\n};\n\nexport default ButtonCheckout;\n            ",
+      "codes_ts": "\n            \"use client\";\n\nimport { useState } from \"react\";\nimport apiClient from \"@/libs/api\";\nimport config from \"@/config\";\n\n// This component is used to create Lemon Squeezy Checkout Sessions\n// It calls the /api/lemonsqueezy/create-checkout route with the variantId and redirectUrl\nconst ButtonCheckout = ({ variantId }: { variantId: string }) => {\n  const [isLoading, setIsLoading] = useState<boolean>(false);\n\n  const handlePayment = async () => {\n    setIsLoading(true);\n\n    try {\n      const { url }: { url: string } = await apiClient.post(\n        \"/lemonsqueezy/create-checkout\",\n        {\n          variantId,\n          redirectUrl: window.location.href,\n        }\n      );\n\n      window.location.href = url;\n    } catch (e) {\n      console.error(e);\n    }\n\n    setIsLoading(false);\n  };\n\n  return (\n    <button\n      className=\"btn btn-primary btn-block group\"\n      onClick={() => handlePayment()}\n    >\n      {isLoading ? (\n        <span className=\"loading loading-spinner loading-xs\"></span>\n      ) : (\n        <svg\n          className=\"w-5 h-5 fill-primary-content group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200\"\n          viewBox=\"0 0 375 509\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path d=\"M249.685 14.125C249.685 11.5046 248.913 8.94218 247.465 6.75675C246.017 4.57133 243.957 2.85951 241.542 1.83453C239.126 0.809546 236.463 0.516683 233.882 0.992419C231.301 1.46815 228.917 2.69147 227.028 4.50999L179.466 50.1812C108.664 118.158 48.8369 196.677 2.11373 282.944C0.964078 284.975 0.367442 287.272 0.38324 289.605C0.399039 291.938 1.02672 294.226 2.20377 296.241C3.38082 298.257 5.06616 299.929 7.09195 301.092C9.11775 302.255 11.4133 302.867 13.75 302.869H129.042V494.875C129.039 497.466 129.791 500.001 131.205 502.173C132.62 504.345 134.637 506.059 137.01 507.106C139.383 508.153 142.01 508.489 144.571 508.072C147.131 507.655 149.516 506.503 151.432 504.757L172.698 485.394C247.19 417.643 310.406 338.487 359.975 250.894L373.136 227.658C374.292 225.626 374.894 223.327 374.882 220.99C374.87 218.653 374.243 216.361 373.065 214.341C371.887 212.322 370.199 210.646 368.17 209.482C366.141 208.318 363.841 207.706 361.5 207.707H249.685V14.125Z\" />\n        </svg>\n      )}\n      Get {config?.appName}\n    </button>\n  );\n};\n\nexport default ButtonCheckout;\n            "
+    },
+    "lemon_complexText_9": [
+      {
+        "type": "text",
+        "content": "9. Update your"
+      },
+      {
+        "type": "highlightedText",
+        "content": "ButtonAccount"
+      },
+      {
+        "type": "text",
+        "content": "compoment"
+      }
+    ],
+    "lemon_codeSnippet_8": {
+      "title:": "components/ButtonAccount.js",
+      "codes": "/* eslint-disable @next/next/no-img-element */\n\"use client\";\n\nimport { useState } from \"react\";\nimport { Popover, Transition } from \"@headlessui/react\";\nimport { useSession, signOut } from \"next-auth/react\";\nimport apiClient from \"@/libs/api\";\n\n// A button to show user some account actions\n//  1. Billing: open a LemonSqeeuzy Customer Portal to manage their billing (cancel subscription, update payment method, etc.).\n//     This is only available if the customer has a customerId (they made a purchase previously)\n//  2. Logout: sign out and go back to homepage\n// See more at https://shipfa.st/docs/components/buttonAccount\nconst ButtonAccount = () => {\n  const { data: session, status } = useSession();\n  const [isLoading, setIsLoading] = useState(false);\n\n  const handleSignOut = () => {\n    signOut({ callbackUrl: \"/\" });\n  };\n\n  const handleBilling = async () => {\n    setIsLoading(true);\n\n    try {\n      const { url } = await apiClient.post(\n        \"/lemonsqueezy/create-portal\"\n      );\n\n      window.location.href = url;\n    } catch (e) {\n      console.error(e);\n    }\n\n    setIsLoading(false);\n  };\n\n  // Don't show anything if not authenticated (we don't have any info about the user)\n  if (status === \"unauthenticated\") return null;\n\n  return (\n    <Popover className=\"relative z-10\">\n      {({ open }) => (\n        <>\n          <Popover.Button className=\"btn\">\n            {session?.user?.image ? (\n              <img\n                src={session?.user?.image}\n                alt={session?.user?.name || \"Account\"}\n                className=\"w-6 h-6 rounded-full shrink-0\"\n                referrerPolicy=\"no-referrer\"\n                width={24}\n                height={24}\n              />\n            ) : (\n              <span className=\"w-6 h-6 bg-base-300 flex justify-center items-center rounded-full shrink-0\">\n                {session?.user?.name?.charAt(0) ||\n                  session?.user?.email?.charAt(0)}\n              </span>\n            )}\n\n            {session?.user?.name || \"Account\"}\n\n            {isLoading ? (\n              <span className=\"loading loading-spinner loading-xs\"></span>\n            ) : (\n              <svg\n                xmlns=\"http://www.w3.org/2000/svg\"\n                viewBox=\"0 0 20 20\"\n                fill=\"currentColor\"\n                className={'w-5 h-5 duration-200 opacity-50'}\n              >\n                <path\n                  fillRule=\"evenodd\"\n                  d=\"M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z\"\n                  clipRule=\"evenodd\"\n                />\n              </svg>\n            )}\n          </Popover.Button>\n          <Transition\n            enter=\"transition duration-100 ease-out\"\n            enterFrom=\"transform scale-95 opacity-0\"\n            enterTo=\"transform scale-100 opacity-100\"\n            leave=\"transition duration-75 ease-out\"\n            leaveFrom=\"transform scale-100 opacity-100\"\n            leaveTo=\"transform scale-95 opacity-0\"\n          >\n            <Popover.Panel className=\"absolute left-0 z-10 mt-3 w-screen max-w-[16rem] transform\">\n              <div className=\"overflow-hidden rounded-xl shadow-xl ring-1 ring-base-content ring-opacity-5 bg-base-100 p-1\">\n                <div className=\"space-y-0.5 text-sm\">\n                  <button\n                    className=\"flex items-center gap-2 hover:bg-base-300 duration-200 py-1.5 px-4 w-full rounded-lg font-medium\"\n                    onClick={handleBilling}\n                  >\n                    <svg\n                      xmlns=\"http://www.w3.org/2000/svg\"\n                      viewBox=\"0 0 20 20\"\n                      fill=\"currentColor\"\n                      className=\"w-5 h-5\"\n                    >\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z\"\n                        clipRule=\"evenodd\"\n                      />\n                    </svg>\n                    Billing\n                  </button>\n                  <button\n                    className=\"flex items-center gap-2 hover:bg-error/20 hover:text-error duration-200 py-1.5 px-4 w-full rounded-lg font-medium\"\n                    onClick={handleSignOut}\n                  >\n                    <svg\n                      xmlns=\"http://www.w3.org/2000/svg\"\n                      viewBox=\"0 0 20 20\"\n                      fill=\"currentColor\"\n                      className=\"w-5 h-5\"\n                    >\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z\"\n                        clipRule=\"evenodd\"\n                      />\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z\"\n                        clipRule=\"evenodd\"\n                      />\n                    </svg>\n                    Logout\n                  </button>\n                </div>\n              </div>\n            </Popover.Panel>\n          </Transition>\n        </>\n      )}\n    </Popover>\n  );\n};\n\nexport default ButtonAccount;",
+      "codes_ts": "\n            /* eslint-disable @next/next/no-img-element */\n\"use client\";\n\nimport { useState } from \"react\";\nimport { Popover, Transition } from \"@headlessui/react\";\nimport { useSession, signOut } from \"next-auth/react\";\nimport apiClient from \"@/libs/api\";\n\n// A button to show user some account actions\n//  1. Billing: open a LemonSqeeuzy Customer Portal to manage their billing (cancel subscription, update payment method, etc.).\n//     This is only available if the customer has a customerId (they made a purchase previously)\n//  2. Logout: sign out and go back to homepage\n// See more at https://shipfa.st/docs/components/buttonAccount\nconst ButtonAccount = () => {\n  const { data: session, status } = useSession();\n  const [isLoading, setIsLoading] = useState<boolean>(false);\n\n  const handleSignOut = () => {\n    signOut({ callbackUrl: \"/\" });\n  };\n\n  const handleBilling = async () => {\n    setIsLoading(true);\n\n    try {\n      const { url }: { url: string } = await apiClient.post(\n        \"/lemonsqueezy/create-portal\"\n      );\n\n      window.location.href = url;\n    } catch (e) {\n      console.error(e);\n    }\n\n    setIsLoading(false);\n  };\n\n  // Don't show anything if not authenticated (we don't have any info about the user)\n  if (status === \"unauthenticated\") return null;\n\n  return (\n    <Popover className=\"relative z-10\">\n      {({ open }) => (\n        <>\n          <Popover.Button className=\"btn\">\n            {session?.user?.image ? (\n              <img\n                src={session?.user?.image}\n                alt={session?.user?.name || \"Account\"}\n                className=\"w-6 h-6 rounded-full shrink-0\"\n                referrerPolicy=\"no-referrer\"\n                width={24}\n                height={24}\n              />\n            ) : (\n              <span className=\"w-6 h-6 bg-base-300 flex justify-center items-center rounded-full shrink-0\">\n                {session?.user?.name?.charAt(0) ||\n                  session?.user?.email?.charAt(0)}\n              </span>\n            )}\n\n            {session?.user?.name || \"Account\"}\n\n            {isLoading ? (\n              <span className=\"loading loading-spinner loading-xs\"></span>\n            ) : (\n              <svg\n                xmlns=\"http://www.w3.org/2000/svg\"\n                viewBox=\"0 0 20 20\"\n                fill=\"currentColor\"\n                className={'w-5 h-5 duration-200 opacity-50'}\n              >\n                <path\n                  fillRule=\"evenodd\"\n                  d=\"M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z\"\n                  clipRule=\"evenodd\"\n                />\n              </svg>\n            )}\n          </Popover.Button>\n          <Transition\n            enter=\"transition duration-100 ease-out\"\n            enterFrom=\"transform scale-95 opacity-0\"\n            enterTo=\"transform scale-100 opacity-100\"\n            leave=\"transition duration-75 ease-out\"\n            leaveFrom=\"transform scale-100 opacity-100\"\n            leaveTo=\"transform scale-95 opacity-0\"\n          >\n            <Popover.Panel className=\"absolute left-0 z-10 mt-3 w-screen max-w-[16rem] transform\">\n              <div className=\"overflow-hidden rounded-xl shadow-xl ring-1 ring-base-content ring-opacity-5 bg-base-100 p-1\">\n                <div className=\"space-y-0.5 text-sm\">\n                  <button\n                    className=\"flex items-center gap-2 hover:bg-base-300 duration-200 py-1.5 px-4 w-full rounded-lg font-medium\"\n                    onClick={handleBilling}\n                  >\n                    <svg\n                      xmlns=\"http://www.w3.org/2000/svg\"\n                      viewBox=\"0 0 20 20\"\n                      fill=\"currentColor\"\n                      className=\"w-5 h-5\"\n                    >\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z\"\n                        clipRule=\"evenodd\"\n                      />\n                    </svg>\n                    Billing\n                  </button>\n                  <button\n                    className=\"flex items-center gap-2 hover:bg-error/20 hover:text-error duration-200 py-1.5 px-4 w-full rounded-lg font-medium\"\n                    onClick={handleSignOut}\n                  >\n                    <svg\n                      xmlns=\"http://www.w3.org/2000/svg\"\n                      viewBox=\"0 0 20 20\"\n                      fill=\"currentColor\"\n                      className=\"w-5 h-5\"\n                    >\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z\"\n                        clipRule=\"evenodd\"\n                      />\n                      <path\n                        fillRule=\"evenodd\"\n                        d=\"M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z\"\n                        clipRule=\"evenodd\"\n                      />\n                    </svg>\n                    Logout\n                  </button>\n                </div>\n              </div>\n            </Popover.Panel>\n          </Transition>\n        </>\n      )}\n    </Popover>\n  );\n};\n\nexport default ButtonAccount;\n            "
+    },
+    "lemon_complexText_10": [
+      {
+        "type": "text",
+        "content": "10. Create a"
+      },
+      {
+        "type": "highlightedText",
+        "content": "lemonsqueezy"
+      },
+      {
+        "type": "text",
+        "content": "lib"
+      }
+    ],
+    "lemon_codeSnippet_9": {
+      "title": "libs/lemonsqueezy.js",
+      "codes": "\n            import {\n  createCheckout,\n  getCustomer,\n  lemonSqueezySetup,\n} from \"@lemonsqueezy/lemonsqueezy.js\";\n\n// This is used to create a Stripe Checkout for one-time payments. It's usually triggered with the <ButtonCheckout /> component. Webhooks are used to update the user's state in the database.\nexport const createLemonSqueezyCheckout = async ({\n  user,\n  redirectUrl,\n  variantId,\n  discountCode,\n}) => {\n  try {\n    lemonSqueezySetup({ apiKey: process.env.LEMONSQUEEZY_API_KEY });\n\n    const storeId = process.env.LEMONSQUEEZY_STORE_ID;\n\n    const newCheckout = {\n      productOptions: {\n        redirectUrl,\n      },\n      checkoutData: {\n        discountCode,\n        email: user?.email,\n        name: user?.name,\n        custom: {\n          userId: user?._id.toString(),\n        },\n      },\n    };\n\n    const { data, error } = await createCheckout(\n      storeId,\n      variantId,\n      newCheckout\n    );\n\n    if (error) {\n      throw error;\n    }\n\n    return data.data.attributes.url;\n  } catch (e) {\n    console.error(e);\n    return null;\n  }\n};\n\n// This is used to create Customer Portal sessions, so users can manage their subscriptions (payment methods, cancel, etc..)\nexport const createCustomerPortal = async ({\n  customerId,\n}) => {\n  try {\n    lemonSqueezySetup({ apiKey: process.env.LEMONSQUEEZY_API_KEY });\n\n    const { data, error } = await getCustomer(customerId);\n\n    if (error) {\n      throw error;\n    }\n\n    return data.data.attributes.urls.customer_portal;\n  } catch (error) {\n    console.error(error);\n    return null;\n  }\n};\n            ",
+      "codes_ts": "\n            import {\n  NewCheckout,\n  createCheckout,\n  getCustomer,\n  lemonSqueezySetup,\n} from \"@lemonsqueezy/lemonsqueezy.js\";\n\ninterface CreateLemonSqueezyCheckoutParams {\n  variantId: string;\n  redirectUrl: string;\n  discountCode?: string;\n  user?: {\n    email: string;\n    name: string;\n    _id: string;\n  };\n}\n\ninterface CreateCustomerPortalParams {\n  customerId: string;\n}\n\n// This is used to create a Stripe Checkout for one-time payments. It's usually triggered with the <ButtonCheckout /> component. Webhooks are used to update the user's state in the database.\nexport const createLemonSqueezyCheckout = async ({\n  user,\n  redirectUrl,\n  variantId,\n  discountCode,\n}: CreateLemonSqueezyCheckoutParams): Promise<string> => {\n  try {\n    lemonSqueezySetup({ apiKey: process.env.LEMONSQUEEZY_API_KEY });\n\n    const storeId = process.env.LEMONSQUEEZY_STORE_ID;\n\n    const newCheckout: NewCheckout = {\n      productOptions: {\n        redirectUrl,\n      },\n      checkoutData: {\n        discountCode,\n        email: user?.email,\n        name: user?.name,\n        custom: {\n          userId: user?._id.toString(),\n        },\n      },\n    };\n\n    const { data, error } = await createCheckout(\n      storeId,\n      variantId,\n      newCheckout\n    );\n\n    if (error) {\n      throw error;\n    }\n\n    return data.data.attributes.url;\n  } catch (e) {\n    console.error(e);\n    return null;\n  }\n};\n\n// This is used to create Customer Portal sessions, so users can manage their subscriptions (payment methods, cancel, etc..)\nexport const createCustomerPortal = async ({\n  customerId,\n}: CreateCustomerPortalParams): Promise<string> => {\n  try {\n    lemonSqueezySetup({ apiKey: process.env.LEMONSQUEEZY_API_KEY });\n\n    const { data, error } = await getCustomer(customerId);\n\n    if (error) {\n      throw error;\n    }\n\n    return data.data.attributes.urls.customer_portal;\n  } catch (error) {\n    console.error(error);\n    return null;\n  }\n};\n            "
+    },
+    "lemon_complexText_11": [
+      {
+        "type": "text",
+        "content": "11. Create an API route for creating a Checkout session"
+      }
+    ],
+    "lemon_codeSnippet_10": {
+      "title": "app/api/lemonsqueezy/create-checkout/route.js",
+      "codes": "\n            import { createLemonSqueezyCheckout } from \"@/libs/lemonsqueezy\";\nimport connectMongo from \"@/libs/mongoose\";\nimport { authOptions } from \"@/libs/next-auth\";\nimport User from \"@/models/User\";\nimport { getServerSession } from \"next-auth/next\";\nimport { NextRequest, NextResponse } from \"next/server\";\n\n// This function is used to create a Stripe Checkout Session (one-time payment or subscription)\n// It's called by the <ButtonCheckout /> component\n// By default, it doesn't force users to be authenticated. But if they are, it will prefill the Checkout data with their email and/or credit card\nexport async function POST(req) {\n  const body = await req.json();\n\n  if (!body.variantId) {\n    return NextResponse.json(\n      { error: \"Variant ID is required\" },\n      { status: 400 }\n    );\n  } else if (!body.redirectUrl) {\n    return NextResponse.json(\n      { error: \"Redirect URL is required\" },\n      { status: 400 }\n    );\n  }\n\n  try {\n    const session = await getServerSession(authOptions);\n\n    await connectMongo();\n\n    const user = await User.findById(session?.user?.id);\n\n    const { variantId, redirectUrl } = body;\n\n    const checkoutURL = await createLemonSqueezyCheckout({\n      variantId,\n      redirectUrl,\n      // If user is logged in, this will automatically prefill Checkout data like email and/or credit card for faster checkout\n      user,\n      // If you send coupons from the frontend, you can pass it here\n      // discountCode: body.discountCode,\n    });\n\n    return NextResponse.json({ url: checkoutURL });\n  } catch (e) {\n    console.error(e);\n    return NextResponse.json({ error: e?.message }, { status: 500 });\n  }\n}\n\n            ",
+      "codes_ts": "\n            import { createLemonSqueezyCheckout } from \"@/libs/lemonsqueezy\";\nimport connectMongo from \"@/libs/mongoose\";\nimport { authOptions } from \"@/libs/next-auth\";\nimport User from \"@/models/User\";\nimport { getServerSession } from \"next-auth/next\";\nimport { NextRequest, NextResponse } from \"next/server\";\n\n// This function is used to create a Stripe Checkout Session (one-time payment or subscription)\n// It's called by the <ButtonCheckout /> component\n// By default, it doesn't force users to be authenticated. But if they are, it will prefill the Checkout data with their email and/or credit card\nexport async function POST(req: NextRequest) {\n  const body = await req.json();\n\n  if (!body.variantId) {\n    return NextResponse.json(\n      { error: \"Variant ID is required\" },\n      { status: 400 }\n    );\n  } else if (!body.redirectUrl) {\n    return NextResponse.json(\n      { error: \"Redirect URL is required\" },\n      { status: 400 }\n    );\n  }\n\n  try {\n    const session = await getServerSession(authOptions);\n\n    await connectMongo();\n\n    const user = await User.findById(session?.user?.id);\n\n    const { variantId, redirectUrl } = body;\n\n    const checkoutURL = await createLemonSqueezyCheckout({\n      variantId,\n      redirectUrl,\n      // If user is logged in, this will automatically prefill Checkout data like email and/or credit card for faster checkout\n      user,\n      // If you send coupons from the frontend, you can pass it here\n      // discountCode: body.discountCode,\n    });\n\n    return NextResponse.json({ url: checkoutURL });\n  } catch (e) {\n    console.error(e);\n    return NextResponse.json({ error: e?.message }, { status: 500 });\n  }\n}\n\n            "
+    },
+    "lemon_complexText_12": [
+      {
+        "type": "text",
+        "content": "12. Create an API route for creating a Customer Portal session"
+      }
+    ],
+    "codeSnippet_11": {
+      "title": "app/api/lemonsqueezy/create-portal/route.js",
+      "codes": "\n            import { NextResponse } from \"next/server\";\nimport { getServerSession } from \"next-auth/next\";\nimport { authOptions } from \"@/libs/next-auth\";\nimport connectMongo from \"@/libs/mongoose\";\nimport User from \"@/models/User\";\nimport { createCustomerPortal } from \"@/libs/lemonsqueezy\";\n\nexport async function POST() {\n  const session = await getServerSession(authOptions);\n\n  if (session) {\n    try {\n      await connectMongo();\n\n      const { id } = session.user;\n\n      const user = await User.findById(id);\n\n      if (!user?.customerId) {\n        return NextResponse.json(\n          {\n            error:\n              \"You don't have a billing account yet. Make a purchase first.\",\n          },\n          { status: 400 }\n        );\n      }\n\n      const url = await createCustomerPortal({\n        customerId: user.customerId,\n      });\n\n      return NextResponse.json({\n        url,\n      });\n    } catch (e) {\n      console.error(e);\n      return NextResponse.json({ error: e?.message }, { status: 500 });\n    }\n  } else {\n  // Not Signed in\n  return NextResponse.json({ error: \"Not signed in\" }, { status: 401 });\n  }\n}\n\n            ",
+      "codes_ts": "\n            import { NextResponse } from \"next/server\";\nimport { getServerSession } from \"next-auth/next\";\nimport { authOptions } from \"@/libs/next-auth\";\nimport connectMongo from \"@/libs/mongoose\";\nimport User from \"@/models/User\";\nimport { createCustomerPortal } from \"@/libs/lemonsqueezy\";\n\nexport async function POST() {\n  const session = await getServerSession(authOptions);\n\n  if (session) {\n    try {\n      await connectMongo();\n\n      const { id } = session.user;\n\n      const user = await User.findById(id);\n\n      if (!user?.customerId) {\n        return NextResponse.json(\n          {\n            error:\n              \"You don't have a billing account yet. Make a purchase first.\",\n          },\n          { status: 400 }\n        );\n      }\n\n      const url = await createCustomerPortal({\n        customerId: user.customerId,\n      });\n\n      return NextResponse.json({\n        url,\n      });\n    } catch (e) {\n      console.error(e);\n      return NextResponse.json({ error: e?.message }, { status: 500 });\n    }\n  } else {\n  // Not Signed in\n  return NextResponse.json({ error: \"Not signed in\" }, { status: 401 });\n  }\n}\n\n            "
+    },
+    "lemon_complexText_13": [
+      {
+        "type": "text",
+        "content": "13. Add your webhook URL on"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Settings > Webhooks."
+      }
+    ],
+    "lemon_complexText_14": [
+      {
+        "type": "text",
+        "content": "14. Create an API route for your Lemon Sqeeuzy webhook"
+      }
+    ],
+    "lemon_codeSnippet_12": {
+      "title": "pages/api/webhook/lemonsqueezy/route.js",
+      "codes": "\n            import { NextResponse } from \"next/server\";\nimport { headers } from \"next/headers\";\nimport connectMongo from \"@/libs/mongoose\";\nimport crypto from \"crypto\";\nimport config from \"@/config\";\nimport User from \"@/models/User\";\n\n// This is where we receive LemonSqueezy webhook events\n// It used to update the user data, send emails, etc...\n// By default, it'll store the user in the database\n// See more: https://shipfa.st/docs/features/payments\nexport async function POST(req) {\n  const secret = process.env.LEMONSQUEEZY_SIGNING_SECRET;\n  if (!secret) {\n    return new Response(\"LEMONSQUEEZY_SIGNING_SECRET is required.\", {\n      status: 400,\n    });\n  }\n\n  await connectMongo();\n\n  // Verify the signature\n  const text = await req.text();\n\n  const hmac = crypto.createHmac(\"sha256\", secret);\n  const digest = Buffer.from(hmac.update(text).digest(\"hex\"), \"utf8\");\n  const signature = Buffer.from(headers().get(\"x-signature\"), \"utf8\");\n\n  if (!crypto.timingSafeEqual(digest, signature)) {\n    return new Response(\"Invalid signature.\", {\n      status: 400,\n    });\n  }\n\n  // Get the payload\n  const payload = JSON.parse(text);\n\n  const eventName = payload.meta.event_name;\n  const customerId = payload.data.attributes.customer_id.toString();\n\n  try {\n    switch (eventName) {\n      case \"order_created\": {\n        // ✅ Grant access to the product\n        const userId = payload.meta?.custom_data?.userId;\n\n        const email = payload.data.attributes.user_email;\n        const name = payload.data.attributes.user_name;\n        const variantId =\n          payload.data.attributes.first_order_item.variant_id.toString();\n\n        const plan = config.lemonsqueezy.plans.find(\n          (p) => p.variantId === variantId\n        );\n        if (!plan) {\n          throw new Error(\"Plan not found for variantId:\", variantId);\n        }\n\n        let user;\n\n        // Get or create the user. userId is normally pass in the checkout session (clientReferenceID) to identify the user when we get the webhook event\n        if (userId) {\n          user = await User.findById(userId);\n        } else if (email) {\n          user = await User.findOne({ email });\n\n          if (!user) {\n            user = await User.create({\n              email,\n              name,\n            });\n\n            await user.save();\n          }\n        } else {\n          throw new Error(\"No user found\");\n        }\n\n        // Update user data + Grant user access to your product. It's a boolean in the database, but could be a number of credits, etc...\n        user.variantId = variantId;\n        user.customerId = customerId;\n        user.hasAccess = true;\n        await user.save();\n\n        // Extra: send email with user link, product page, etc...\n        // try {\n        //   await sendEmail(...);\n        // } catch (e) {\n        //   console.error(\"Email issue:\" + e?.message);\n        // }\n\n        break;\n      }\n\n      case \"subscription_cancelled\": {\n        // The customer subscription stopped\n        // ❌ Revoke access to the product\n\n        const user = await User.findOne({ customerId });\n\n        // Revoke access to your product\n        user.hasAccess = false;\n        await user.save();\n\n        break;\n      }\n\n      default:\n      // Unhandled event type\n    }\n  } catch (e) {\n    console.error(\"lemonsqueezy error: \", e.message);\n  }\n\n  return NextResponse.json({});\n}\n\n            ",
+      "codes_ts": "\n            import { NextResponse, NextRequest } from \"next/server\";\nimport { headers } from \"next/headers\";\nimport connectMongo from \"@/libs/mongoose\";\nimport crypto from \"crypto\";\nimport config from \"@/config\";\nimport User from \"@/models/User\";\n\n// This is where we receive LemonSqueezy webhook events\n// It used to update the user data, send emails, etc...\n// By default, it'll store the user in the database\n// See more: https://shipfa.st/docs/features/payments\nexport async function POST(req: NextRequest) {\n  const secret = process.env.LEMONSQUEEZY_SIGNING_SECRET;\n  if (!secret) {\n    return new Response(\"LEMONSQUEEZY_SIGNING_SECRET is required.\", {\n      status: 400,\n    });\n  }\n\n  await connectMongo();\n\n  // Verify the signature\n  const text = await req.text();\n\n  const hmac = crypto.createHmac(\"sha256\", secret);\n  const digest = Buffer.from(hmac.update(text).digest(\"hex\"), \"utf8\");\n  const signature = Buffer.from(headers().get(\"x-signature\"), \"utf8\");\n\n  if (!crypto.timingSafeEqual(digest, signature)) {\n    return new Response(\"Invalid signature.\", {\n      status: 400,\n    });\n  }\n\n  // Get the payload\n  const payload = JSON.parse(text);\n\n  const eventName = payload.meta.event_name;\n  const customerId = payload.data.attributes.customer_id.toString();\n\n  try {\n    switch (eventName) {\n      case \"order_created\": {\n        // ✅ Grant access to the product\n        const userId = payload.meta?.custom_data?.userId;\n\n        const email = payload.data.attributes.user_email;\n        const name = payload.data.attributes.user_name;\n        const variantId =\n          payload.data.attributes.first_order_item.variant_id.toString();\n\n        const plan = config.lemonsqueezy.plans.find(\n          (p) => p.variantId === variantId\n        );\n        if (!plan) {\n          throw new Error(\"Plan not found for variantId:\", variantId);\n        }\n\n        let user;\n\n        // Get or create the user. userId is normally pass in the checkout session (clientReferenceID) to identify the user when we get the webhook event\n        if (userId) {\n          user = await User.findById(userId);\n        } else if (email) {\n          user = await User.findOne({ email });\n\n          if (!user) {\n            user = await User.create({\n              email,\n              name,\n            });\n\n            await user.save();\n          }\n        } else {\n          throw new Error(\"No user found\");\n        }\n\n        // Update user data + Grant user access to your product. It's a boolean in the database, but could be a number of credits, etc...\n        user.variantId = variantId;\n        user.customerId = customerId;\n        user.hasAccess = true;\n        await user.save();\n\n        // Extra: send email with user link, product page, etc...\n        // try {\n        //   await sendEmail(...);\n        // } catch (e) {\n        //   console.error(\"Email issue:\" + e?.message);\n        // }\n\n        break;\n      }\n      \n      case \"subscription_cancelled\": {\n        // The customer subscription stopped\n        // ❌ Revoke access to the product\n\n        const user = await User.findOne({ customerId });\n\n        // Revoke access to your product\n        user.hasAccess = false;\n        await user.save();\n\n        break;\n      }\n\n      default:\n      // Unhandled event type\n    }\n    \n  } catch (e) {\n    console.error(\"lemonsqueezy error: \", e.message);\n  }\n\n  return NextResponse.json({});\n}\n\n            "
+    }
+  }
+}

@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['shipfa.st'], // Add your hostname(s) here
+        // remotePatterns: ['shipfa.st'], // Add your hostname(s) here
+        remotePatterns:[
+          {
+            protocol: 'https',
+            hostname: 'shipfa.st',
+            port: '',
+            pathname: '**',
+          },
+        ]
       },
 };
 

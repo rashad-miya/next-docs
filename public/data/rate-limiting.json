@@ -1,0 +1,297 @@
+{
+  "nextAuth": {
+    "title": "Security > Rate Limiting (API Routes)",
+    "next_plainText_1": "It is recommended to protect your API routes from abuse by rate limiting them. This tutorial will show you how to rate limit your API routes using Upstash.",
+    "next_complexText_1": [
+      {
+        "type": "text",
+        "content": "We will be protecting API routes"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api/one"
+      },
+      {
+        "type": "text",
+        "content": "and"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api/two"
+      },
+      {
+        "type": "text",
+        "content": ". You can replace them with your own API endpoints."
+      }
+    ],
+    "next_setup_subTitle": "setup",
+    "next_complexText_2": [
+      {
+        "type": "text",
+        "content": "1. Sign up on"
+      },
+      {
+        "type": "link",
+        "content": "Upstash",
+        "link": ""
+      }
+    ],
+    "next_complexText_3": [
+      {
+        "type": "text",
+        "content": "3. Add the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "UPSTASH_REDIS_REST_URL"
+      },
+      {
+        "type": "text",
+        "content": "and"
+      },
+      {
+        "type": "highlightedText",
+        "content": "UPSTASH_REDIS_REST_TOKEN"
+      },
+      {
+        "type": "text",
+        "content": "to your"
+      },
+      {
+        "type": "highlightedText",
+        "content": ".env.local"
+      },
+      {
+        "type": "text",
+        "content": "file"
+      }
+    ],
+    "next_plainText_2": "4. Install the packages:",
+    "next_codeSnippet_1": {
+      "title": "terminal",
+      "codes": "\nnpm install @upstash/redis @upstash/ratelimit\n            "
+    },
+    "next_complexText_4": [
+      {
+        "type": "text",
+        "content": "5. Create a new"
+      },
+      {
+        "type": "highlightedText",
+        "content": "middleware.js"
+      },
+      {
+        "type": "text",
+        "content": "file in the root directory (the same level as the "
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app"
+      },
+      {
+        "type": "text",
+        "content": "folder) and add the following content:"
+      }
+    ],
+    "next_codeSnippet_2": {
+      "title": "/middleware.js",
+      "codes": "\n\n            import { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nexport default async function middleware(request) {\n  const ip = request.ip ?? \"127.0.0.1\";\n  const { success } = await ratelimit.limit(ip);\n\n  return success\n    ? NextResponse.next()\n    : NextResponse.redirect(new URL(\"/blocked\", request.url));\n}\n\nexport const config = {\n  matcher: [\"/api/one\", \"/api/two\"],\n};\n\n            ",
+      "codes_ts": "\nimport { NextRequest, NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nexport default async function middleware(request: NextRequest) {\n  const ip = request.ip ?? \"127.0.0.1\";\n  const { success } = await ratelimit.limit(ip);\n\n  return success\n    ? NextResponse.next()\n    : NextResponse.redirect(new URL(\"/blocked\", request.url));\n}\n\nexport const config = {\n  matcher: [\"/api/one\", \"/api/two\"],\n};\n\n"
+    },
+    "next_highlightedNote_1": [
+      {
+        "type": "text",
+        "content": "We are rate limiting the user to 5 requests per minute based on their IP using the sliding window algorithm. You can refer to the"
+      },
+      {
+        "type": "underlinedText",
+        "content": " Upstash ratelimit SDK documentation"
+      },
+      {
+        "type": "text",
+        "content": "for more information on customizing it."
+      }
+    ],
+    "next_complexText_5": [
+      {
+        "type": "text",
+        "content": "6. Create a new"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app/blocked/page.js"
+      },
+      {
+        "type": "text",
+        "content": "file. This is the page the user will be redirected to when they hit the rate limit. Add the following content:"
+      }
+    ],
+    "next_codeSnippet_3": {
+      "title": "/app/blocked/page.js",
+      "codes": "\n\"use client\";\n\nimport config from \"@/config\";\nimport { signIn } from \"next-auth/react\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\nreturn (\n  <main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n    <h1 className=\"text-xl md:text-2xl font-medium\">\n      Hm, Access Blocked\n    </h1>\n    <p>Try again in 1 minute</p>\n\n    <div>\n      <button\n        onClick={() =>\n          signIn(undefined, {\n            callbackUrl: config.auth.callbackUrl,\n          })\n        }\n        className=\"link\"\n      >\n        Login\n      </button>{\" \"}\n      or{\" \"}\n      <Link className=\"link\" href=\"/\">\n        Home\n      </Link>\n    </div>\n  </main>\n);\n};\n\nexport default Blocked;\n            "
+    },
+    "next_complexText_6": [
+      {
+        "type": "text",
+        "content": "7. That's it! You have successfully rate limited the API routes. Now, when a user hits the rate limit, they will be redirected to the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/blocked"
+      },
+      {
+        "type": "text",
+        "content": "page."
+      }
+    ]
+  },
+  "supabase": {
+    "title": "Security > Rate Limiting (API Routes)",
+    "supabase_plainText_1": "It is recommended to protect your API routes from abuse by rate limiting them. This tutorial will show you how to rate limit your API routes using Upstash.",
+    "supabase_complexText_1": [
+      {
+        "type": "text",
+        "content": "We will be protecting API routes"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api/one"
+      },
+      {
+        "type": "text",
+        "content": "and"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/api/two"
+      },
+      {
+        "type": "text",
+        "content": ". You can replace them with your own API endpoints."
+      }
+    ],
+    "supabase_setup_subTitle": "setup",
+    "supabase_complexText_2": [
+      {
+        "type": "text",
+        "content": "1. Sign up on"
+      },
+      {
+        "type": "link",
+        "content": "Upstash",
+        "link": ""
+      }
+    ],
+    "supabase_complexText_3": [
+      {
+        "type": "text",
+        "content": "2. Create a new "
+      },
+      {
+        "type": "link",
+        "content": "Redis database",
+        "link": ""
+      }
+    ],
+    "supabase_complexText_4": [
+      {
+        "type": "text",
+        "content": "3. Add the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "UPSTASH_REDIS_REST_URL"
+      },
+      {
+        "type": "text",
+        "content": "and"
+      },
+      {
+        "type": "highlightedText",
+        "content": "UPSTASH_REDIS_REST_TOKEN"
+      },
+      {
+        "type": "text",
+        "content": "to your"
+      },
+      {
+        "type": "highlightedText",
+        "content": ".env.local"
+      },
+      {
+        "type": "text",
+        "content": "file"
+      }
+    ],
+    "supabase_plainText_2": "4. Install the packages:",
+    "supabase_codeSnippet_1": {
+      "title": "terminal",
+      "codes": "\nnpm install @upstash/redis @upstash/ratelimit\n            "
+    },
+    "supabase_complexText_5": [
+      {
+        "type": "text",
+        "content": "5. Update the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "middleware.js"
+      },
+      {
+        "type": "text",
+        "content": "file with the following content:"
+      }
+    ],
+    "supabase_codeSnippet_2": {
+      "title": "/middleware.js",
+      "codes": "\n            import { createMiddlewareClient } from \"@supabase/auth-helpers-nextjs\";\nimport { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nconst urlsToRateLimit = [\"/api/one\", \"/api/two\"];\n\n// The middleware is used to refresh the user's session before loading Server Component routes\nexport default async function middleware(req) {\n  if (urlsToRateLimit.some((url) => req.url.includes(url))) {\n    const ip = req.ip ?? \"127.0.0.1\";\n    const { success } = await ratelimit.limit(ip);\n\n    if (!success) {\n      return NextResponse.redirect(new URL(\"/blocked\", req.url));\n    }\n  }\n  const res = NextResponse.next();\n  const supabase = createMiddlewareClient({ req, res });\n  await supabase.auth.getSession();\n  return res;\n}\n\n            ",
+      "codes_ts": "\nimport { createMiddlewareClient } from \"@supabase/auth-helpers-nextjs\";\nimport { NextRequest, NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nconst urlsToRateLimit = [\"/api/one\", \"/api/two\"];\n\n// The middleware is used to refresh the user's session before loading Server Component routes\nexport default async function middleware(req: NextRequest) {\n  if (urlsToRateLimit.some((url) => req.url.includes(url))) {\n    const ip = req.ip ?? \"127.0.0.1\";\n    const { success } = await ratelimit.limit(ip);\n\n    if (!success) {\n      return NextResponse.redirect(new URL(\"/blocked\", req.url));\n    }\n  }\n  const res = NextResponse.next();\n  const supabase = createMiddlewareClient({ req, res });\n  await supabase.auth.getSession();\n  return res;\n}\n\n"
+    },
+    "supabase_highlightedNote_1": [
+      {
+        "type": "text",
+        "content": "We are rate limiting the user to 5 requests per minute based on their IP using the sliding window algorithm. You can refer to the"
+      },
+      {
+        "type": "underlinedText",
+        "content": " Upstash ratelimit SDK documentation"
+      },
+      {
+        "type": "text",
+        "content": "for more information on customizing it."
+      }
+    ],
+    "supabase_complexText_6": [
+      {
+        "type": "text",
+        "content": "6. Create a new"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app/blocked/page.js"
+      },
+      {
+        "type": "text",
+        "content": "file. This is the page the user will be redirected to when they hit the rate limit. Add the following content:"
+      }
+    ],
+    "supabase_codeSnippet_3": {
+      "title": "/app/blocked/page.js",
+      "codes": "\n\"use client\";\n\nimport config from \"@/config\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\n\treturn (\n\t\t<main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n\t\t\t<h1 className=\"text-xl md:text-2xl font-medium\">\n\t\t\t\tHm, Access Blocked\n\t\t\t</h1>\n\t\t\t<p>Try again in 1 minute</p>\n\n\t\t\t<div>\n\t\t\t\t<Link className=\"link\" href=\"/signin\">\n\t\t\t\t\tLogin\n\t\t\t\t</Link>{\" \"}\n\t\t\t\tor{\" \"}\n\t\t\t\t<Link className=\"link\" href=\"/\">\n\t\t\t\t\tHome\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t</main>\n\t);\n};\n\nexport default Blocked;\n"
+    },
+    "supabase_complexText_7": [
+      {
+        "type": "text",
+        "content": "7. That's it! You have successfully rate limited the API routes. Now, when a user hits the rate limit, they will be redirected to the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/blocked"
+      },
+      {
+        "type": "text",
+        "content": "page."
+      }
+    ]
+  }
+}

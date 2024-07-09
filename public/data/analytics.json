@@ -1,0 +1,63 @@
+{
+  "docs": {
+    "title": "Features > Analytics",
+    "support_subTitle": "setup",
+    "complexText_1": [
+      {
+        "type": "text",
+        "content": "1. Create a new site on"
+      },
+      {
+        "type": "link",
+        "content": "plausible",
+        "link": ""
+      }
+    ],
+    "complexText_2": [
+      {
+        "type": "text",
+        "content": "2. (optional) Some adblockers block Plausible. To fix this, proxy the script through the nextjs /api."
+      },
+      {
+        "type": "blockText",
+        "content": "First add this to next.config.js:"
+      }
+    ],
+    "codeSnippet_1": {
+      "title": "next.config.js",
+      "codes": "\n            async rewrites() {\n            return [\n            {\n                source: \"/plausible/js/script.js\",\n                destination: \"https://plausible.io/js/script.js\",\n            },\n            {\n                source: \"/plausible/api/event\",\n                destination: \"https://plausible.io/api/event\",\n            },\n            ];\n        }\n            "
+    },
+    "complexText_3": [
+      {
+        "type": "text",
+        "content": "Then replace the Plausible script in the the main"
+      },
+      {
+        "type": "highlightedText",
+        "content": "layout.js"
+      },
+      {
+        "type": "text",
+        "content": "file:"
+      }
+    ],
+    "codeSnippet_2": {
+      "title": "layout.js",
+      "codes": "\n    <script\n    defer\n    data-domain=\"YOUR_DOMAIN\"\n    data-api=\"/plausible/api/event\"\n    src=\"/plausible/js/script.js\"\n    ></script>\n    "
+    },
+    "complexText_4": [
+      {
+        "type": "text",
+        "content": "I use Plausible for traffic analytics & custom events. If you want to use another tool, remove the Plausible script in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "layout.js"
+      },
+      {
+        "type": "text",
+        "content": "file."
+      }
+    ]
+  }
+}

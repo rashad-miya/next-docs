@@ -1,0 +1,311 @@
+const fs = require('fs');
+
+const data = {
+    "docs": {
+        "title": " Extras",
+
+        "extras_subTitle": "Setup",
+        
+        "complexText_1": [
+            {
+                "type": "text",
+                "content": "1. Add your own logo in the "
+            },
+            {
+                "type": "highlightedText",
+                "content": "/app "
+            },
+            {
+                "type": "text",
+                "content": "folder and name it "
+            },
+            {
+                "type": "highlightedText",
+                "content": "icon.png."
+            },
+        ],
+
+        "highlightedNote_1": [
+            {
+                "type": "text",
+                "content": "Not using .png extension? Update components that use icon.png like the "
+
+            },
+            {
+                "type":"highlightedText",
+                "content":"Header"
+            }
+        ],
+
+        "complexText_2": [
+            {
+                "type": "text",
+                "content": "2. Create your site favicon with this free "
+            },
+            {
+                "type": "underlinedText",
+                "content": "Favicon Generator.",
+                "link":""
+            },
+            {
+                "type": "highlightedText",
+                "content": "/app"
+            },
+            {
+                "type": "text",
+                "content": "Download the zip file and put this 2 files in the"
+            },
+            {
+                "type": "text",
+                "content": "folder:"
+            },
+        ],
+
+        "complexText_3": [
+           
+            {
+                "type": "highlightedText",
+                "content": "apple-touch-icon.png"
+            },
+            {
+                "type": "text",
+                "content": "(rename it to"
+            },
+            {
+                "type": "highlightedText",
+                "content": "apple-icon.png"
+            },
+            {
+                "type": "text",
+                "content": ")"
+            },
+        ],
+
+        "complexText_4": [
+
+            {
+                "type": "highlightedText",
+                "content": "favicon.ico"
+            },
+        ],
+
+        "complexText_5": [
+            {
+                "type": "text",
+                "content": "NextJS will automatically reference them in the"
+            },
+            {
+                "type": "highlightedText",
+                "content": "<head />"
+            },
+            {
+                "type": "text",
+                "content": "of your HTML page. Read more about"
+            },
+            {
+                "type": "link",
+                "content": "metadata file convention.",
+                "link":""
+            },
+        ],
+
+        "complexText_6": [
+            {
+                "type": "text",
+                "content": "3. Create a rectangle logo with your name like the one below. Name it"
+            },
+            {
+                "type": "highlightedText",
+                "content": "logoAndName.png"
+            },
+            {
+                "type": "text",
+                "content": "and add it to the"
+            },
+            {
+                "type": "highlightedText",
+                "content": "/public"
+            },
+            {
+                "type": "text",
+                "content": "folder. Next-Auth will automatically add it to your login pages (see "
+            },
+            {
+                "type": "highlightedText",
+                "content": "/libs/next-auth.js"
+            },
+            {
+                "type": "text",
+                "content": "file)."
+            }
+        ],
+
+        "complexText_7": [
+            {
+                "type": "text",
+                "content": "4. Create two 1200x660 images for social media sharing. Name the first"
+            },
+            {
+                "type": "highlightedText",
+                "content": "opengraph-image.png"
+            },
+            {
+                "type": "text",
+                "content": "and the second "
+            },
+            {
+                "type": "highlightedText",
+                "content": "twitter-image.png"
+            },
+            {
+                "type": "text",
+                "content": " and add them to the"
+            },
+            {
+                "type": "highlightedText",
+                "content": " /app "
+            },
+            {
+                "type": "text",
+                "content": "folder."
+            }
+        ],
+
+        "complexText_8": [
+            {
+                "type": "text",
+                "content": "NextJS will automatically reference them in the "
+            },
+            {
+                "type": "highlightedText",
+                "content": "<head />"
+            },
+            {
+                "type": "text",
+                "content": "of your HTML page. Read more about"
+            },
+            {
+                "type": "link",
+                "content": "metadata file convention.",
+                "link":""
+            },
+        ],
+
+        "usefull_resources_subTitle":"Useful ressources",
+        "ressource_1": [
+            {
+                "type": "text",
+                "content": "If you need a logo, you can use"
+            },
+            {
+                "type": "link",
+                "content": "LogoFast",
+                "link":""
+            },
+        ],
+        "ressource_2": [
+            {
+                "type": "text",
+                "content": "If you need SVG illustrations, you can use "
+            },
+            {
+                "type": "link",
+                "content": "Undraw",
+                "link":""
+            },
+        ],
+
+        "ressource_3": [
+            {
+                "type": "text",
+                "content": "If you need SVG background patterns, you can use Hero "
+            },
+            {
+                "type": "link",
+                "content": "Patterns",
+                "link":""
+            },
+        ],
+
+        "ressource_4": [
+            {
+                "type": "text",
+                "content": "If you need icons, you can use  & Lucide"
+            },
+            {
+                "type": "link",
+                "content": "Heroicons",
+                "link":""
+            },
+            {
+                "type": "text",
+                "content": "&"
+            },
+            {
+                "type": "link",
+                "content": "Lucide",
+                "link":""
+            },
+        ],
+
+        "ressource_5": [
+            {
+                "type": "text",
+                "content": "If you need SVG blobs, you can use"
+            },
+            {
+                "type": "link",
+                "content": "Haikei",
+                "link":""
+            },
+        ],
+
+        "ressource_6": [
+            {
+                "type": "text",
+                "content": "If you need Tailwind Snippets , you can use"
+            },
+            {
+                "type": "link",
+                "content": "Snippets",
+                "link":""
+            },
+        ],
+
+        "ressource_7": [
+            {
+                "type": "text",
+                "content": "If you need Notion-like icons, you can use"
+            },
+            {
+                "type": "link",
+                "content": "Overflow",
+                "link":""
+            },
+        ],
+
+        "ressource_8": [
+            {
+                "type": "text",
+                "content": "If you need cute SVG doodles, you can use"
+            },
+            {
+                "type": "link",
+                "content": "Figma Doodles",
+                "link":""
+            },
+        ],
+
+    }
+
+}
+
+
+
+fs.writeFile('data/extras.json', JSON.stringify(data, null, 2), (err) => {
+    if (err) {
+        console.error('Error writing file:', err);
+    } else {
+        console.log('File has been saved.');
+    }
+});

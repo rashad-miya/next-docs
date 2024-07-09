@@ -1,0 +1,230 @@
+const fs = require('fs');
+
+const data = {
+    "docs": {
+        "title": "Tutorials > SEO",
+
+        "seo_subTitle": "Setup",
+
+        "complexText_1": [
+            {
+                "type": "text",
+                "content": "1. One "
+            },
+            {
+                "type": "highlightedText",
+                "content": "config.js"
+            },
+            {
+                "type": "text",
+                "content": "file and add values for"
+            },
+            {
+                "type": "highlightedText",
+                "content": "appName"
+            },
+            {
+                "type": "highlightedText",
+                "content": "appDescription"
+            },
+            
+            {
+                "type": "text",
+                "content": ", and"
+            },
+            {
+                "type": "highlightedText",
+                "content": "domainName"
+            },
+            {
+                "type": "text",
+                "content": ". These values will be used as default SEO tags. The helper"
+            },
+            {
+                "type": "highlightedText",
+                "content": "/libs/seo.js"
+            },
+            {
+                "type": "text",
+                "content": "adds all the important SEO tags (with your default values) to all pages thanks to the main"
+            },
+            {
+                "type": "highlightedText",
+                "content": "/app/layout.js"
+            },
+            {
+                "type": "text",
+                "content": "file."
+            }
+        ],
+
+        "plainText_1": "2. To add custom SEO tags to a page without rewritting all the tags, do this:",
+
+   "codeSnippet_1": {
+            "title": "/app/terms/page.js",
+            "codes": `
+            
+            import { getSEOTags } from "@/libs/seo";
+            ...
+
+            export const metadata = getSEOTags({
+            title: "Terms and Conditions | ShipFast",
+            canonicalUrlRelative: "/tos",
+            });
+
+            export default async function TermsAndConditions() {
+            ...
+
+            `
+        },
+
+        "highlightedNote_1": [
+            {
+                "type": "text",
+                "content": "I recommend setting"
+            },
+            {
+                "type": "highlightedText",
+                "content": "title."
+            },
+            {
+                "type": "text",
+                "content": "and"
+            },
+            {
+                "type": "highlightedText",
+                "content": "canonicalUrlRelative."
+            },
+            {
+                "type":"text",
+                "content":"for each pages"
+            }
+        ],
+
+
+        "complexText_2": [
+            {
+                "type": "text",
+                "content": "3. When relevant, add Structured Data to a page using the"
+            },
+            {
+                "type": "highlightedText",
+                "content": "renderSchemaTags()"
+            },
+            {
+                "type": "text",
+                "content": "function in"
+            },
+            {
+                "type": "highlightedText",
+                "content": "/libs/seo.js"
+            },
+            {
+                "type": "text",
+                "content": ". It helps Google understand better your website and can get you a rich snippet. Open the component for more documentation. Here's an example:"
+            },
+        ],
+
+   
+"codeSnippet_2": {
+            "title": "/app/page.js",
+            "codes": `
+            import { renderSchemaTags } from "@/libs/seo";
+
+            export default function Page() {
+            return (
+                <>
+                {renderSchemaTags()}
+
+                <main className="flex min-h-screen flex-col items-center justify-center text-center gap-12 p-8">
+                    <h1 className="text-3xl font-extrabold">Ship Fast</h1>
+
+            ...
+
+                </main>
+                </>
+            );
+            }
+            `
+        },
+
+        "complexText_3": [
+            {
+                "type": "text",
+                "content": "4. Add your root URL to siteUrl (i.e. https://yourdomain.com) in the"
+            },
+            {
+                "type": "highlightedText",
+                "content": "next-sitemap.config.js"
+            },
+            {
+                "type": "text",
+                "content": "file, in the root folder. It will generate a sitemap.xml & robots.txt file for all your pages (at build time)."
+            }
+        ],
+
+        "highlightedNote_2": [
+            {
+                "type": "text",
+                "content": "Claim your domain ownership on"
+            },
+            {
+                "type": "underlinedText",
+                "content": "Google Search Console "
+            },
+            {
+                "type": "text",
+                "content": "to help indexing"
+            },
+        ],
+
+       "nakeBlog_subTitle":"Make a Blog in minutes",
+
+        "complexText_4": [
+            {
+                "type": "text",
+                "content": "In the "
+            },
+            {
+                "type": "highlightedText",
+                "content": "/app/blog/_assets"
+            },
+            {
+                "type": "text",
+                "content": "folder, you have a"
+            },
+            {
+                "type": "highlightedText",
+                "content": "content.js"
+            },
+            {
+                "type": "text",
+                "content": "file that contains all your blog posts, authors, categories and style. Simply add your content there and ShipFast will generate a blog for you. See the"
+            },
+            {
+                "type":"underlinedText",
+                "content":"blog section"
+            },
+            {
+                "type":"text",
+                "content":"for more details."
+            }
+        ],
+
+        "seo_list_image": {
+            "image_url": "https://shipfa.st/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fseo_helper.78be6925.png&w=1920&q=75",
+            "bottom_text": "A list of important SEO tags"
+        },
+    },
+
+}
+
+
+
+fs.writeFile('data/seo.json', JSON.stringify(data, null, 2), (err) => {
+    if (err) {
+        console.error('Error writing file:', err);
+    } else {
+        console.log('File has been saved.');
+    }
+});

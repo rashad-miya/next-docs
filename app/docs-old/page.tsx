@@ -3,8 +3,7 @@ import React from 'react'
 import { CiFolderOn } from 'react-icons/ci'
 import { IoCopyOutline } from 'react-icons/io5'
 import ShipFirstComponent from '../components/ShipFirstComponent'
-import SearchBar from '../components/SearchBar'
-import MobileMenu from '../components/MobileMenu'
+import SearchBar from '../components/SearchBar';
 
 const page = () => {
   return (
@@ -254,7 +253,6 @@ const page = () => {
         </div>
 
       </div>
-      {/* <MobileMenu/> */}
       <SearchBar />
       <ShipFirstComponent />
     </div>

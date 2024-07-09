@@ -1,0 +1,51 @@
+{
+  "ship": {
+    "title": "Tutorials > Static page",
+    "plainText_1": "ShipFast comes with many components to help you build SEO-optimized pages (like a landing page) in no time.",
+    "complexText_1": [
+      {
+        "type": "text",
+        "content": "The"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/components"
+      },
+      {
+        "type": "text",
+        "content": "folder contains all you need (hero, pricing, FAQ sections). Here's the list of all the components & themes.."
+      },
+      {
+        "type": "underlinedText",
+        "content": "all the components "
+      },
+      {
+        "type": "text",
+        "content": "& themes.."
+      }
+    ],
+    "complexText_2": [
+      {
+        "type": "text",
+        "content": "The"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/libs/seo.js"
+      },
+      {
+        "type": "text",
+        "content": "file helps you set SEO tags to better rank on Google. Make sure to"
+      },
+      {
+        "type": "underlinedText",
+        "content": "customize SEO tags."
+      }
+    ],
+    "plainText_2": "A simple landing page can done like this:",
+    "codeSnippet_1": {
+      "title": "landing.js",
+      "codes": "import { getSEOTags } from \"@/libs/seo\";\n\nexport const metadata = getSEOTags({ canonicalUrlRelative: \"/\" });\n\nexport default function Landing() {\n  return (\n    <>\n      <main\n        className=\"min-h-screen p-12 pb-24 text-center\"\n        data-theme=\"dark\"\n      >\n        <section className=\"max-w-xl mx-auto space-y-8\">\n          <h1 className=\"text-3xl md:text-4xl font-extrabold\">\n            Food recipes you&apos;ll love 🥦\n          </h1>\n\n          <p className=\"text-lg leading-relaxed text-base-content/80\">\n            Our AI will generate recipes based on your preferences. New recipes\n            will be added every week!\n          </p>\n\n          <img\n            src=\"https://images.unsplash.com/photo-1518843875459-f738682238a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3484&q=80\"\n            alt=\"Vegetables\"\n            width={500}\n            height={250}\n            className=\"rounded-lg mx-auto\"\n          />\n\n          <button className=\"btn btn-primary btn-wide\">Get started</button>\n        </section>\n      </main>\n    </>\n  );\n}"
+    }
+  }
+}

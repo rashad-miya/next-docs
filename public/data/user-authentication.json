@@ -1,0 +1,128 @@
+{
+  "nextAuth": {
+    "title": "Tutorials > User authentication",
+    "complexText_1": [
+      {
+        "type": "text",
+        "content": "ShipFast uses"
+      },
+      {
+        "type": "underlinedText",
+        "content": "NextAuth"
+      },
+      {
+        "type": "text",
+        "content": "to authenticate users. You can configure it in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/app/api/auth/[...nextauth]/route.js"
+      },
+      {
+        "type": "text",
+        "content": "file."
+      }
+    ],
+    "complexText_2": [
+      {
+        "type": "text",
+        "content": "There are 2 built-in ways to authenticate users with ShipFast:"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Magic Links"
+      },
+      {
+        "type": "text",
+        "content": "&"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Google Oauth."
+      }
+    ],
+    "plainText_1": "Once you've completed at least one of the tutorials above, you can login users like this:",
+    "codeSnippet_1": {
+      "title": "ButtonSignin.js",
+      "codes": "import { getSEOTags } from \"@/libs/seo\";\n\nexport const metadata = getSEOTags({ canonicalUrlRelative: \"/\" });\n\nexport default function Landing() {\n  return (\n    <>\n      <main\n        className=\"min-h-screen p-12 pb-24 text-center\"\n        data-theme=\"dark\"\n      >\n        <section className=\"max-w-xl mx-auto space-y-8\">\n          <h1 className=\"text-3xl md:text-4xl font-extrabold\">\n            Food recipes you&apos;ll love 🥦\n          </h1>\n\n          <p className=\"text-lg leading-relaxed text-base-content/80\">\n            Our AI will generate recipes based on your preferences. New recipes\n            will be added every week!\n          </p>\n\n          <img\n            src=\"https://images.unsplash.com/photo-1518843875459-f738682238a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3484&q=80\"\n            alt=\"Vegetables\"\n            width={500}\n            height={250}\n            className=\"rounded-lg mx-auto\"\n          />\n\n          <button className=\"btn btn-primary btn-wide\">Get started</button>\n        </section>\n      </main>\n    </>\n  );\n}"
+    },
+    "highlightedNote_1": [
+      {
+        "type": "text",
+        "content": "The"
+      },
+      {
+        "type": "highlightedText",
+        "content": "callbackUrl"
+      },
+      {
+        "type": "text",
+        "content": "variable in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "config.js"
+      },
+      {
+        "type": "text",
+        "content": "file is used accross the app to redirect the user at the right place after a successfull sign-up/login. It's usually a private page like"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/dashboard"
+      }
+    ]
+  },
+  "supabase": {
+    "title": "Tutorials > User authentication",
+    "complexText_1": [
+      {
+        "type": "text",
+        "content": "There are 2 built-in ways to authenticate users with ShipFast:"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Magic Links"
+      },
+      {
+        "type": "text",
+        "content": "&"
+      },
+      {
+        "type": "underlinedText",
+        "content": "Google Oauth."
+      }
+    ],
+    "plainText_1": "Once you've completed at least one of the tutorials above, you can login users like this:",
+    "codeSnippet_1": {
+      "title": "ButtonSignin.js",
+      "codes": "\"use client\";\n\nimport Link from \"next/link\";\n\nconst SigninButton = () => {\n  return (\n    <Link className=\"btn btn-primary\" href=\"/signin\">\n      Login\n    </Link>\n  );\n};\n\nexport default SigninButton;\n"
+    },
+    "highlightedNote_1": [
+      {
+        "type": "text",
+        "content": "The"
+      },
+      {
+        "type": "highlightedText",
+        "content": "callbackUrl"
+      },
+      {
+        "type": "text",
+        "content": "variable in the"
+      },
+      {
+        "type": "highlightedText",
+        "content": "config.js"
+      },
+      {
+        "type": "text",
+        "content": "file is used accross the app to redirect the user at the right place after a successfull sign-up/login. It's usually a private page like"
+      },
+      {
+        "type": "highlightedText",
+        "content": "/dashboard"
+      }
+    ]
+  }
+}

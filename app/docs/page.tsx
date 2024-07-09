@@ -5,8 +5,27 @@ import { IoCopyOutline } from 'react-icons/io5'
 import ShipFirstComponent from '../components/ShipFirstComponent'
 import SearchBar from '../components/SearchBar'
 import Image from 'next/image'
+import CodeExample from '../components/CodeExample'
 
 const page = () => {
+
+  const exampleCode = `
+import { useState } from 'react';
+
+const ExampleComponent = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="container">
+      <p className="text">Count: {count}</p>
+      <button className="btn" onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+export default ExampleComponent;
+`;
+
   return (
     <div className='p-8 md:p-12 '>
       <h2 className='flex items-center gap-2 font-bold text-3xl lg:text-5xl tracking-tight text-base-content flex-wrap'>
@@ -66,6 +85,7 @@ const page = () => {
               1. In your terminal, run the following commands
               <span className="text-gray-100 px-1">one-by-one:</span>
             </div>
+
 
             <div className="text-sm bg-base-100 rounded-lg overflow-hidden border border-base-content border-opacity-20">
 
