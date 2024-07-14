@@ -44,6 +44,8 @@ const Sidebar = () => {
     useEffect(() => {
 
         const currentPath = window.location.pathname;
+        setActiveLink(currentPath);
+
         if (currentPath === '/docs') {
             setSelectedRoute({
                 title: 'App Router',
@@ -55,7 +57,10 @@ const Sidebar = () => {
                 subTitle: 'Features in /pages'
             });
         }
+
     }, []);
+
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -65,13 +70,9 @@ const Sidebar = () => {
         setIsOpenModal(!isOpenModal);
     }
 
-    const handleNavigation = (event: any) => {
-        event.preventDefault();
+    const handleRedirectRouter = (event: any) => {
+        // event.preventDefault();
         setIsOpenModal(false);
-        const url = event.currentTarget.getAttribute('href');
-        setTimeout(() => {
-            window.location.href = url;
-        }, 300);
     };
 
     const handleScrollTop = (id: string) => {
@@ -87,15 +88,7 @@ const Sidebar = () => {
     };
 
     const handleItemClick = (event: any) => {
-        event.preventDefault();
-        const url = event.currentTarget.getAttribute('href');
-        const name = event.currentTarget.getAttribute('data-name');
-        console.log("active item name :", name)
-        setActiveLink(name);
-
-        setTimeout(() => {
-            window.location.href = url;
-        }, 300);
+        setActiveLink(event);
     }
 
     const SidebarContent = () => {
@@ -135,8 +128,10 @@ const Sidebar = () => {
                                 <div className="absolute left-0 z-10 mt-3 w-full max-w-xs transform">
                                     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-white ring-opacity-10">
                                         <div className="relative grid bg-base-100 divide-y divide-gray-700 ">
-                                            <a href='/docs' onClick={handleNavigation}>
-                                                <div className="text-left text-sm text-white flex items-center gap-2 p-2 cursor-pointer hover:hover:bg-gray-950 duration-200">
+                                            <Link href='/docs'>
+                                                <div className="text-left text-sm text-white flex items-center gap-2 p-2 cursor-pointer hover:hover:bg-gray-950 duration-200"
+                                                onClick={() => handleRedirectRouter('/docs')}
+                                                >
                                                     <div className="rounded-md border border-gray-500 bg-gradient-to-b from-base-content to-blue-400 p-1.5 text-blue-700">
                                                         <BsBox />
                                                     </div>
@@ -145,9 +140,11 @@ const Sidebar = () => {
                                                         <p className="opacity-70 text-xs">Featurs in /app</p>
                                                     </div>
                                                 </div>
-                                            </a>
-                                            <a href='/docs-old' onClick={handleNavigation}>
-                                                <div className="text-left text-sm text-white flex items-center gap-2 p-2 cursor-pointer hover:hover:bg-gray-950 duration-200">
+                                            </Link>
+                                            <Link href='/docs-old'>
+                                                <div className="text-left text-sm text-white flex items-center gap-2 p-2 cursor-pointer hover:hover:bg-gray-950 duration-200"
+                                                    onClick={() => handleRedirectRouter('/docs-old')}
+                                                >
                                                     <div className="dark:border-purple-4000 rounded-md border border-purple-400 bg-gradient-to-b from-base-content to-purple-300 p-1.5 text-purple-700 ">
                                                         <LuStickyNote />
                                                     </div>
@@ -156,7 +153,7 @@ const Sidebar = () => {
                                                         <p className="opacity-70 text-xs">Featurs in /pages</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -168,46 +165,82 @@ const Sidebar = () => {
                 <div className="grid gap-1">
 
                     <div id='get-started' onClick={() => handleScrollTop('get-started')} >
-                        <Link href={'/'} data-name={'getsatrted'}
-                            className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <IoPlayOutline color='white' />
-                            <span className="text-sm font-semibold text-gray-300">Get Started</span>
+                        <Link href={'/'} >
+                            <div
+                                onClick={() => handleItemClick('/')}
+                                className='flex items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content'>
+                                <IoPlayOutline className={`${activeLink == '/' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Get Started</span>
+                            </div>
                         </Link>
                     </div>
 
                     <div id='tutorial' onClick={() => handleScrollTop('tutorial')}>
-                        <Link href={'/docs/tutorials'} className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <FaBook className='text-gray-400' />
-                            <span className="text-sm font-semibold text-gray-400">Tutorials</span>
+                        <Link href={'/docs/tutorials'} >
+                            <div
+                                onClick={() => handleItemClick('/docs/tutorials')}
+                                className='flex items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content'>
+                                <IoShieldOutline className={`${activeLink == '/docs/tutorials' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/docs/tutorials' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Tutorials</span>
+                            </div>
                         </Link>
                         <div className="my-1">
-                            <Link href={"/docs/tutorials/ship-in-5-minutes"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Ship in 5 minutes</span>
-                                <PiStarFour className='w-[15px] h-[15px] fill-accent' />
+                            <Link href={"/docs/tutorials/ship-in-5-minutes"}
+                            >
+                                <div onClick={() => handleItemClick("/docs/tutorials/ship-in-5-minutes")}
+                                    className={`${activeLink == '/docs/tutorials/ship-in-5-minutes' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}
+                                >
+                                    <span className="">Ship in 5 minutes</span>
+                                    <PiStarFour className='w-[15px] h-[15px] fill-accent' />
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/static-page"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Static page</span>
+                            <Link href={"/docs/tutorials/static-page"}
+                                className={`${activeLink == '/docs/tutorials/static-page' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/static-page")}>
+                                    <span className="">Static page</span>
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/user-authentication"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="/docs/tutorials/user-authentication">User Authentications</span>
+                            <Link href={"/docs/tutorials/user-authentication"}
+                                className={`${activeLink == '/docs/tutorials/user-authentication' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/user-authentication")}>
+                                    <span className="">User Authentications</span>
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/api-call"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Api call</span>
+                            <Link href={"/docs/tutorials/api-call"}
+                                className={`${activeLink == '/docs/tutorials/api-call' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/api-call")}>
+                                    <span className="">Api call</span>
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/private-page"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Private page</span>
+                            <Link href={"/docs/tutorials/private-page"}
+                                className={`${activeLink == '/docs/tutorials/private-page' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/private-page")}>
+                                    <span className="">Private page</span>
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/subscriptions"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Stripe Subscriptions</span>
+                            <Link href={"/docs/tutorials/subscriptions"}
+                                className={`${activeLink == '/docs/tutorials/subscriptions' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/subscriptions")}>
+                                    <span className="">Stripe Subscriptions</span>
+                                </div>
                             </Link>
 
-                            <Link href={"/docs/tutorials/privacy-policy-gpt"} className='text-gray-400 ml-[17px] pl-[21px] flex items-center border-l text-sm border-l-gray-500 hover:border-l-gray-400 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 active:text-gray-300 active:border-l-gray-400 space-x-3'>
-                                <span className="">Privecy policy with GPT</span>
+                            <Link href={"/docs/tutorials/privacy-policy-gpt"}
+                                className={`${activeLink == '/docs/tutorials/privacy-policy-gpt' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/tutorials/privacy-policy-gpt")}>
+                                    <span className="">Privecy policy with GPT</span>
+                                </div>
                             </Link>
 
                         </div>
@@ -216,56 +249,89 @@ const Sidebar = () => {
 
                     {/* features */}
                     <div id='features' onClick={() => handleScrollTop('features')}>
-                        <Link href={'/docs/features'} className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <MdKeyboardOptionKey className='text-gray-400' />
-                            <span className="text-sm font-semibold text-gray-400">Features</span>
+                        <Link href={'/docs/features'}>
+                            <div className='flex items-center space-x-3 rounded-lg px-2 py-1.5 '
+                                onClick={() => handleItemClick('/docs/features')}
+                            >
+                                <MdKeyboardOptionKey className={`${activeLink == '/docs/features' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/docs/features' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold transition-all duration-150 ease-in-out hover:text-gray-300`}>Features</span>
+                            </div>
                         </Link>
+
                         <div className="my-1">
-                            <a href={'/docs/features/seo'} data-name={'seo'} onClick={handleItemClick}
-                                className={`${activeLink == 'seo' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">SEO</span>
 
-                            </a>
+                            <Link href={"/docs/features/seo"}
+                                className={`${activeLink == '/docs/features/seo' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
 
-                            <a href={'/docs/features/database'} data-name={'database'} onClick={handleItemClick}
-                                className={`${activeLink == 'database' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Database</span>
-                            </a>
+                                <div onClick={() => handleItemClick("/docs/features/seo")}>
+                                    <span className="">SEO</span>
+                                </div>
+                            </Link>
 
-                            <a href={'/docs/features/emails'} data-name={'emails'} onClick={handleItemClick}
-                                className={`${activeLink == 'emails' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Emails</span>
-                            </a>
+                            <Link href={"/docs/features/database"}
+                                className={`${activeLink == '/docs/features/database' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
 
-                            <a href={'/docs/features/payments'} data-name={'payments'} onClick={handleItemClick}
-                                className={`${activeLink == 'payments' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Payments</span>
-                            </a>
+                                <div onClick={() => handleItemClick("/docs/features/database")}>
+                                    <span className="">Database</span>
+                                </div>
+                            </Link>
 
-                            <a href={'/docs/features/google-oauth'} data-name={'google-auth'} onClick={handleItemClick}
-                                className={`${activeLink == 'google-auth' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Goolge Auth</span>
-                            </a>
+                            <Link href={"/docs/features/emails"}
+                                className={`${activeLink == '/docs/features/emails' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
 
-                            <a href={'/docs/features/magic-links'} data-name={'magic-links'} onClick={handleItemClick}
-                                className={`${activeLink == 'magic-links' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Magic Links</span>
-                            </a>
+                                <div onClick={() => handleItemClick("/docs/features/emails")}>
+                                    <span className="">Emails</span>
+                                </div>
+                            </Link>
 
-                            <a href={'/docs/features/customer-support'} data-name={'customer-support'} onClick={handleItemClick}
-                                className={`${activeLink == 'customer-support' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Customer Support</span>
-                            </a>
+                            <Link href={"/docs/features/payments"}
+                                className={`${activeLink == '/docs/features/payments' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
 
-                            <a href={'/docs/features/error-handling'} data-name={'error-handling'} onClick={handleItemClick}
-                                className={`${activeLink == 'error-handling' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Error Handling</span>
-                            </a>
+                                <div onClick={() => handleItemClick("/docs/features/payments")}>
+                                    <span className="">Payments</span>
+                                </div>
+                            </Link>
 
-                            <a href={'/docs/features/analytics'} data-name={'analytics'} onClick={handleItemClick}
-                                className={`${activeLink == 'analytics' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">Analytics</span>
-                            </a>
+                            <Link href={"/docs/features/google-oauth"}
+                                className={`${activeLink == '/docs/features/google-oauth' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/features/google-oauth")}>
+                                    <span className="">Goolge Auth</span>
+                                </div>
+                            </Link>
+
+                            <Link href={"/docs/features/magic-links"}
+                                className={`${activeLink == '/docs/features/magic-links' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/features/magic-links")}>
+                                    <span className="">Magic Links</span>
+                                </div>
+                            </Link>
+
+
+                            <Link href={"/docs/features/customer-support"}
+                                className={`${activeLink == '/docs/features/customer-support' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/features/customer-support")}>
+                                    <span className="">Customer Support</span>
+                                </div>
+                            </Link>
+
+                            <Link href={"/docs/features/error-handling"}
+                                className={`${activeLink == '/docs/features/error-handling' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/features/error-handling")}>
+                                    <span className="">Error Handling</span>
+                                </div>
+                            </Link>
+
+                            <Link href={"/docs/features/analytics"}
+                                className={`${activeLink == '/docs/features/analytics' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/features/analytics")}>
+                                    <span className="">Analytics</span>
+                                </div>
+                            </Link>
 
                         </div>
                     </div>
@@ -415,9 +481,13 @@ const Sidebar = () => {
 
                     {/* Security */}
                     <div id='security' onClick={() => handleScrollTop('security')}>
-                        <Link href={'/docs/security'} className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <IoShieldOutline className='text-gray-400' />
-                            <span className="text-sm font-semibold text-gray-400">Security</span>
+                        <Link href={'/docs/security'} >
+                            <div
+                                onClick={() => handleItemClick('/docs/security')}
+                                className='flex items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content'>
+                                <IoShieldOutline className={`${activeLink == '/docs/security' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/docs/security' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Security</span>
+                            </div>
                         </Link>
                         <div className="my-1">
                             {/* <a href={'./somewhere'} data-name={'Sending-Limit-in-Mailgun'} onClick={handleItemClick}
@@ -435,29 +505,40 @@ const Sidebar = () => {
                                 <span className="">{`Rate Limiting (Magic Links)`}</span>
                             </a> */}
 
-                            <a href={'/docs/security/rate-limiting-api-routes'} data-name={'Rate-Limiting-api'} onClick={handleItemClick}
-                                className={`${activeLink == 'Rate-Limiting-api' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
-                                <span className="">{`Rate Limiting (API Routes)`}</span>
-                            </a>
+                            <Link href={"/docs/security/rate-limiting-api-routes"}
+                                className={`${activeLink == '/docs/security/rate-limiting-api-routes' ? 'border-l-gray-300 text-gray-200' : 'border-l-gray-500 text-gray-400'} ml-[17px] pl-[21px] flex items-center border-l text-sm  hover:border-l-gray-300 py-1.5 transition-all duration-150 ease-in-out hover:text-gray-300 space-x-3 `}>
+
+                                <div onClick={() => handleItemClick("/docs/security/rate-limiting-api-routes")}>
+                                    <span className="">Rate Limiting (API Routes)</span>
+                                </div>
+                            </Link>
+
                         </div>
                     </div>
 
                     {/* deployments */}
+
                     <div id='Deployment' onClick={() => handleScrollTop('Deployment')}>
-                        <a href={'/docs/deployments'} data-name={'Deployment'} onClick={handleItemClick}
-                            className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <IoRocketOutline className={`${activeLink == 'Deployment' ? 'text-gray-200' : 'text-gray-400'}`} />
-                            <span className={`${activeLink == 'Deployment' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Deployment</span>
-                        </a>
+                        <Link href={'/docs/deployments'} >
+                            <div
+                                onClick={() => handleItemClick('/docs/deployments')}
+                                className='flex items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content'>
+                                <IoRocketOutline className={`${activeLink == '/docs/deployments' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/docs/deployments' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Deployment</span>
+                            </div>
+                        </Link>
                     </div>
                     {/* extras */}
 
                     <div id='Extras' onClick={() => handleScrollTop('Extras')}>
-                        <a href={'/docs/extras'} data-name={'Extras'} onClick={handleItemClick}
-                            className='flex items-center space-x-3 text-base-content rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content active:text-base-content'>
-                            <FaBicycle className={`${activeLink == 'Extras' ? 'text-gray-200' : 'text-gray-400'}`} />
-                            <span className={`${activeLink == 'Extras' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Extras</span>
-                        </a>
+                        <Link href={'/docs/extras'} >
+                            <div
+                                onClick={() => handleItemClick('/docs/extras')}
+                                className='flex items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:text-base-content'>
+                                <FaBicycle className={`${activeLink == '/docs/extras' ? 'text-gray-200' : 'text-gray-400'}`} />
+                                <span className={`${activeLink == '/docs/extras' ? 'text-gray-200' : 'text-gray-400'} text-sm font-semibold `}>Extras</span>
+                            </div>
+                        </Link>
                     </div>
 
                 </div>

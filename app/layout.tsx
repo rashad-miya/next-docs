@@ -3,9 +3,11 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import Sidebar from "./components/Sidebar";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '500', '600', '700'], style: ['normal', 'italic'], });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

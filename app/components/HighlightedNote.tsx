@@ -38,7 +38,6 @@ interface HighLightedNoteProps {
 
 
 const HighLightedNote: React.FC<HighLightedNoteProps> = ({ content, className = '' }) => {
-    console.log("content :", content);
 
     return (
         <div className={`${className} p-4 px-5 rounded-r-lg text-base-content bg-[#272010] text-sm border-l-[3px] border-[#706241]`}>

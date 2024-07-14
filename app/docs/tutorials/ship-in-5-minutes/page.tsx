@@ -12,7 +12,6 @@ const page = () => {
     useEffect(() => {
         const loadData = async () => {
             const result = await fetchData('../../../../data/ship-in-5-minutes.json');
-            console.log("ship in 5 minutes :", result.ship);
             setPageContent(result.ship);
         }
         loadData()

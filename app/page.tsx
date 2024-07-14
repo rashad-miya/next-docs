@@ -185,7 +185,7 @@ export default function Home() {
             }
             <ul className="space-y-2 leading-relaxed">
               {pageContent.projectStructure_items && pageContent.projectStructure_items.map((item: any, index: number) => {
-                console.log("structure item :", item)
+
                 return (
                   <li className="flex gap-3 items-center text-gray-400" key={index}>
                     <CiFolderOn size={20} className='opacity-80' />

@@ -39,7 +39,7 @@ const CodeExample: React.FC<CodeExampleProps> = ({ codeString, language, title =
       </div>
 
       <div className="block scrollbar-large overflow-x-auto bg-[#2B2B2B] text-[#383737]">
-        <SyntaxHighlighter language={language} style={tomorrow} className='scrollbar-large'>
+        <SyntaxHighlighter language={language} style={tomorrow} className='scrollbar-large' showLineNumbers>
           {codeString}
         </SyntaxHighlighter>
       </div>
