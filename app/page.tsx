@@ -8,6 +8,7 @@ import PlainText from "./components/PlainText";
 import SearchBar from './components/SearchBar';
 import ShipFirstComponent from './components/ShipFirstComponent';
 import WhiteCodeSnippet from "./components/WhiteCodeSnippet";
+import CodeExampleTyped from './components/CodeExampleTyped';
 
 const fetchData = async () => {
   try {
@@ -23,7 +24,7 @@ const fetchData = async () => {
 
 
 export default function Home() {
-  const [pageContent, setPageContent] = useState<any>(null || Object);
+  const [pageContent, setPageContent] = useState<any>(Object);
   const [activeContent, setActiveContent] = useState("1");
 
   useEffect(() => {
@@ -123,7 +124,8 @@ export default function Home() {
 
               {
                 pageContent.localServer_codeSnippet_1 && (
-                  <WhiteCodeSnippet codes={pageContent.localServer_codeSnippet_1} />
+                  // <WhiteCodeSnippet codes={pageContent.localServer_codeSnippet_1} />
+                  <CodeExampleTyped codeObjext={pageContent.localServer_codeSnippet_1} language='jsx' />
                 )
               }
 
@@ -153,7 +155,9 @@ export default function Home() {
               }
 
               {pageContent.localServer_codeSnippet_2 && (
-                <WhiteCodeSnippet codes={pageContent.localServer_codeSnippet_2} />
+                // <WhiteCodeSnippet codes={pageContent.localServer_codeSnippet_2} />
+                <WhiteCodeSnippet codeString={pageContent.localServer_codeSnippet_2.codes} language='jsx' title={pageContent.localServer_codeSnippet_2.title} />
+
               )}
 
               {pageContent.localServer_complexText_3 && (
@@ -232,7 +236,8 @@ export default function Home() {
             )}
 
             {pageContent.env_codeSnippet && (
-              <WhiteCodeSnippet codes={pageContent.env_codeSnippet} className="mt-4" />
+              <WhiteCodeSnippet codeString={pageContent.env_codeSnippet.codes} language='jsx' title={pageContent.env_codeSnippet.title} />
+
             )}
           </div>
 

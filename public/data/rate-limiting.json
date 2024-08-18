@@ -69,7 +69,7 @@
     "next_plainText_2": "4. Install the packages:",
     "next_codeSnippet_1": {
       "title": "terminal",
-      "codes": "\nnpm install @upstash/redis @upstash/ratelimit\n            "
+      "codes": "npm install @upstash/redis @upstash/ratelimit"
     },
     "next_complexText_4": [
       {
@@ -95,7 +95,7 @@
     ],
     "next_codeSnippet_2": {
       "title": "/middleware.js",
-      "codes": "\n\n            import { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nexport default async function middleware(request) {\n  const ip = request.ip ?? \"127.0.0.1\";\n  const { success } = await ratelimit.limit(ip);\n\n  return success\n    ? NextResponse.next()\n    : NextResponse.redirect(new URL(\"/blocked\", request.url));\n}\n\nexport const config = {\n  matcher: [\"/api/one\", \"/api/two\"],\n};\n\n            ",
+      "codes": "import { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nexport default async function middleware(request) {\n  const ip = request.ip ?? \"127.0.0.1\";\n  const { success } = await ratelimit.limit(ip);\n\n  return success\n    ? NextResponse.next()\n    : NextResponse.redirect(new URL(\"/blocked\", request.url));\n}\n\nexport const config = {\n  matcher: [\"/api/one\", \"/api/two\"],\n};\n\n            ",
       "codes_ts": "\nimport { NextRequest, NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nexport default async function middleware(request: NextRequest) {\n  const ip = request.ip ?? \"127.0.0.1\";\n  const { success } = await ratelimit.limit(ip);\n\n  return success\n    ? NextResponse.next()\n    : NextResponse.redirect(new URL(\"/blocked\", request.url));\n}\n\nexport const config = {\n  matcher: [\"/api/one\", \"/api/two\"],\n};\n\n"
     },
     "next_highlightedNote_1": [
@@ -128,7 +128,7 @@
     ],
     "next_codeSnippet_3": {
       "title": "/app/blocked/page.js",
-      "codes": "\n\"use client\";\n\nimport config from \"@/config\";\nimport { signIn } from \"next-auth/react\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\nreturn (\n  <main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n    <h1 className=\"text-xl md:text-2xl font-medium\">\n      Hm, Access Blocked\n    </h1>\n    <p>Try again in 1 minute</p>\n\n    <div>\n      <button\n        onClick={() =>\n          signIn(undefined, {\n            callbackUrl: config.auth.callbackUrl,\n          })\n        }\n        className=\"link\"\n      >\n        Login\n      </button>{\" \"}\n      or{\" \"}\n      <Link className=\"link\" href=\"/\">\n        Home\n      </Link>\n    </div>\n  </main>\n);\n};\n\nexport default Blocked;\n            "
+      "codes": "\"use client\";\n\nimport config from \"@/config\";\nimport { signIn } from \"next-auth/react\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\nreturn (\n  <main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n    <h1 className=\"text-xl md:text-2xl font-medium\">\n      Hm, Access Blocked\n    </h1>\n    <p>Try again in 1 minute</p>\n\n    <div>\n      <button\n        onClick={() =>\n          signIn(undefined, {\n            callbackUrl: config.auth.callbackUrl,\n          })\n        }\n        className=\"link\"\n      >\n        Login\n      </button>{\" \"}\n      or{\" \"}\n      <Link className=\"link\" href=\"/\">\n        Home\n      </Link>\n    </div>\n  </main>\n);\n};\n\nexport default Blocked;\n            "
     },
     "next_complexText_6": [
       {
@@ -226,7 +226,7 @@
     "supabase_plainText_2": "4. Install the packages:",
     "supabase_codeSnippet_1": {
       "title": "terminal",
-      "codes": "\nnpm install @upstash/redis @upstash/ratelimit\n            "
+      "codes": "npm install @upstash/redis @upstash/ratelimit"
     },
     "supabase_complexText_5": [
       {
@@ -244,7 +244,7 @@
     ],
     "supabase_codeSnippet_2": {
       "title": "/middleware.js",
-      "codes": "\n            import { createMiddlewareClient } from \"@supabase/auth-helpers-nextjs\";\nimport { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nconst urlsToRateLimit = [\"/api/one\", \"/api/two\"];\n\n// The middleware is used to refresh the user's session before loading Server Component routes\nexport default async function middleware(req) {\n  if (urlsToRateLimit.some((url) => req.url.includes(url))) {\n    const ip = req.ip ?? \"127.0.0.1\";\n    const { success } = await ratelimit.limit(ip);\n\n    if (!success) {\n      return NextResponse.redirect(new URL(\"/blocked\", req.url));\n    }\n  }\n  const res = NextResponse.next();\n  const supabase = createMiddlewareClient({ req, res });\n  await supabase.auth.getSession();\n  return res;\n}\n\n            ",
+      "codes": "import { createMiddlewareClient } from \"@supabase/auth-helpers-nextjs\";\nimport { NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nconst urlsToRateLimit = [\"/api/one\", \"/api/two\"];\n\n// The middleware is used to refresh the user's session before loading Server Component routes\nexport default async function middleware(req) {\n  if (urlsToRateLimit.some((url) => req.url.includes(url))) {\n    const ip = req.ip ?? \"127.0.0.1\";\n    const { success } = await ratelimit.limit(ip);\n\n    if (!success) {\n      return NextResponse.redirect(new URL(\"/blocked\", req.url));\n    }\n  }\n  const res = NextResponse.next();\n  const supabase = createMiddlewareClient({ req, res });\n  await supabase.auth.getSession();\n  return res;\n}\n\n            ",
       "codes_ts": "\nimport { createMiddlewareClient } from \"@supabase/auth-helpers-nextjs\";\nimport { NextRequest, NextResponse } from \"next/server\";\nimport { Ratelimit } from \"@upstash/ratelimit\";\nimport { Redis } from \"@upstash/redis\";\n\nconst redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN,\n});\n\nconst ratelimit = new Ratelimit({\n  redis: redis,\n  limiter: Ratelimit.slidingWindow(5, \"60 s\"),\n});\n\nconst urlsToRateLimit = [\"/api/one\", \"/api/two\"];\n\n// The middleware is used to refresh the user's session before loading Server Component routes\nexport default async function middleware(req: NextRequest) {\n  if (urlsToRateLimit.some((url) => req.url.includes(url))) {\n    const ip = req.ip ?? \"127.0.0.1\";\n    const { success } = await ratelimit.limit(ip);\n\n    if (!success) {\n      return NextResponse.redirect(new URL(\"/blocked\", req.url));\n    }\n  }\n  const res = NextResponse.next();\n  const supabase = createMiddlewareClient({ req, res });\n  await supabase.auth.getSession();\n  return res;\n}\n\n"
     },
     "supabase_highlightedNote_1": [
@@ -277,7 +277,7 @@
     ],
     "supabase_codeSnippet_3": {
       "title": "/app/blocked/page.js",
-      "codes": "\n\"use client\";\n\nimport config from \"@/config\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\n\treturn (\n\t\t<main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n\t\t\t<h1 className=\"text-xl md:text-2xl font-medium\">\n\t\t\t\tHm, Access Blocked\n\t\t\t</h1>\n\t\t\t<p>Try again in 1 minute</p>\n\n\t\t\t<div>\n\t\t\t\t<Link className=\"link\" href=\"/signin\">\n\t\t\t\t\tLogin\n\t\t\t\t</Link>{\" \"}\n\t\t\t\tor{\" \"}\n\t\t\t\t<Link className=\"link\" href=\"/\">\n\t\t\t\t\tHome\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t</main>\n\t);\n};\n\nexport default Blocked;\n"
+      "codes": "\"use client\";\n\nimport config from \"@/config\";\nimport React from \"react\";\nimport Link from \"next/link\";\n\nconst Blocked = () => {\n\treturn (\n\t\t<main className=\"relative bg-neutral text-neutral-content h-screen w-full flex flex-col justify-center gap-8 items-center p-10\">\n\t\t\t<h1 className=\"text-xl md:text-2xl font-medium\">\n\t\t\t\tHm, Access Blocked\n\t\t\t</h1>\n\t\t\t<p>Try again in 1 minute</p>\n\n\t\t\t<div>\n\t\t\t\t<Link className=\"link\" href=\"/signin\">\n\t\t\t\t\tLogin\n\t\t\t\t</Link>{\" \"}\n\t\t\t\tor{\" \"}\n\t\t\t\t<Link className=\"link\" href=\"/\">\n\t\t\t\t\tHome\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t</main>\n\t);\n};\n\nexport default Blocked;\n"
     },
     "supabase_complexText_7": [
       {

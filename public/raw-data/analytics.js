@@ -31,20 +31,18 @@ const data = {
 
         "codeSnippet_1": {
             "title": "next.config.js",
-            "codes": `
-            async rewrites() {
-            return [
-            {
-                source: "/plausible/js/script.js",
-                destination: "https://plausible.io/js/script.js",
-            },
-            {
-                source: "/plausible/api/event",
-                destination: "https://plausible.io/api/event",
-            },
-            ];
-        }
-            `
+            "codes": `async rewrites() {
+    return [
+      {
+        source: "/plausible/js/script.js",
+        destination: "https://plausible.io/js/script.js",
+      },
+      {
+        source: "/plausible/api/event",
+        destination: "https://plausible.io/api/event",
+      },
+    ];
+}`
         },
 
 
@@ -65,14 +63,12 @@ const data = {
 
         "codeSnippet_2": {
     "title": "layout.js",
-    "codes": `
-    <script
+    "codes": `<script
     defer
     data-domain="YOUR_DOMAIN"
     data-api="/plausible/api/event"
     src="/plausible/js/script.js"
-    ></script>
-    `
+  ></script>`
         },
 
         "complexText_4": [

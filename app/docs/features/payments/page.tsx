@@ -8,13 +8,14 @@ import SearchBar from '@/app/components/SearchBar'
 import SetupTitle from '@/app/components/SetupTitle'
 import ShipFirstComponent from '@/app/components/ShipFirstComponent'
 import SubTitle from '@/app/components/SubTitle'
+import WhiteCodeSnippet from '@/app/components/WhiteCodeSnippet'
 import { fetchData } from '@/utils/fetchData'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
-    const [pageContent, setPageContent] = useState<any>(null || Object);
+    const [pageContent, setPageContent] = useState<any>(Object);
     const [activeContent, setActiveContent] = useState("1");
 
     useEffect(() => {
@@ -111,7 +112,7 @@ const page = () => {
                 {
                     pageContent.stripe_codeSnippet_1 && (
                         <div className="py-2">
-                            <CodeExample codeString={pageContent.stripe_codeSnippet_1.codes} language='jsx' title={pageContent.stripe_codeSnippet_1.title} />
+                            <WhiteCodeSnippet codeString={pageContent.stripe_codeSnippet_1.codes} language='jsx' title={pageContent.stripe_codeSnippet_1.title} />
                         </div>
                     )
                 }
@@ -211,7 +212,7 @@ const page = () => {
                 {
                     pageContent.lemon_codeSnippet_1 && (
                         <div className="py-2">
-                            <CodeExample codeString={pageContent.lemon_codeSnippet_1.codes} language='jsx' title={pageContent.lemon_codeSnippet_1.title} />
+                            <WhiteCodeSnippet codeString={pageContent.lemon_codeSnippet_1.codes} language='jsx' title={pageContent.lemon_codeSnippet_1.title} />
                         </div>
                     )
                 }
@@ -220,7 +221,7 @@ const page = () => {
                 {
                     pageContent.lemon_codeSnippet_2 && (
                         <div className="py-2">
-                            <CodeExample codeString={pageContent.lemon_codeSnippet_2.codes} language='jsx' title={pageContent.lemon_codeSnippet_2.title} />
+                            <WhiteCodeSnippet codeString={pageContent.lemon_codeSnippet_2.codes} language='jsx' title={pageContent.lemon_codeSnippet_2.title} />
                         </div>
                     )
                 }

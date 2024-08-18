@@ -1,6 +1,6 @@
 {
   "docs": {
-    "title": "Features > SEO",
+    "title": "Tutorials > SEO",
     "seo_subTitle": "Setup",
     "complexText_1": [
       {
@@ -55,7 +55,7 @@
     "plainText_1": "2. To add custom SEO tags to a page without rewritting all the tags, do this:",
     "codeSnippet_1": {
       "title": "/app/terms/page.js",
-      "codes": "\n            \n            import { getSEOTags } from \"@/libs/seo\";\n            ...\n\n            export const metadata = getSEOTags({\n            title: \"Terms and Conditions | ShipFast\",\n            canonicalUrlRelative: \"/tos\",\n            });\n\n            export default async function TermsAndConditions() {\n            ...\n\n            "
+      "codes": "\nimport { getSEOTags } from \"@/libs/seo\";\n...\n\nexport const metadata = getSEOTags({\n  title: \"Terms and Conditions | ShipFast\",\n  canonicalUrlRelative: \"/tos\",\n});\n\nexport default async function TermsAndConditions() {\n...\n"
     },
     "highlightedNote_1": [
       {
@@ -103,7 +103,7 @@
     ],
     "codeSnippet_2": {
       "title": "/app/page.js",
-      "codes": "\n            import { renderSchemaTags } from \"@/libs/seo\";\n\n            export default function Page() {\n            return (\n                <>\n                {renderSchemaTags()}\n\n                <main className=\"flex min-h-screen flex-col items-center justify-center text-center gap-12 p-8\">\n                    <h1 className=\"text-3xl font-extrabold\">Ship Fast</h1>\n\n            ...\n\n                </main>\n                </>\n            );\n            }\n            "
+      "codes": "import { renderSchemaTags } from \"@/libs/seo\";\n\nexport default function Page() {\n  return (\n    <>\n      {renderSchemaTags()}\n\n      <main className=\"flex min-h-screen flex-col items-center justify-center text-center gap-12 p-8\">\n        <h1 className=\"text-3xl font-extrabold\">Ship Fast</h1>\n\n...\n\n      </main>\n    </>\n  );\n}"
     },
     "complexText_3": [
       {

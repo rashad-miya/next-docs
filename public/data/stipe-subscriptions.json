@@ -101,7 +101,7 @@
     ],
     "codeSnippet_1": {
       "title": "/app/dashboard/pages.js",
-      "codes": "\n            import ButtonAccount from \"@/components/ButtonAccount\";\n            import ButtonCheckout from \"@/components/ButtonCheckout\";\n            import config from \"@/config\";\n\n            export const dynamic = \"force-dynamic\";\n\n            export default async function Dashboard() {\n            return (\n                <main className=\"min-h-screen p-8 pb-24\">\n                <section className=\"max-w-xl mx-auto space-y-8\">\n                    <ButtonAccount />\n\n                    <h1 className=\"text-3xl md:text-4xl font-extrabold\">\n                    Subscribe to get access:\n                    </h1>\n\n                    <ButtonCheckout\n                    mode=\"subscription\"\n                    priceId={config.stripe.plans[0].priceId}\n                    />\n                </section>\n                </main>\n            );\n            }\n\n            "
+      "codes": "import ButtonAccount from \"@/components/ButtonAccount\";\nimport ButtonCheckout from \"@/components/ButtonCheckout\";\nimport config from \"@/config\";\n\nexport const dynamic = \"force-dynamic\";\n\nexport default async function Dashboard() {\n  return (\n    <main className=\"min-h-screen p-8 pb-24\">\n      <section className=\"max-w-xl mx-auto space-y-8\">\n        <ButtonAccount />\n\n        <h1 className=\"text-3xl md:text-4xl font-extrabold\">\n          Subscribe to get access:\n        </h1>\n\n        <ButtonCheckout\n          mode=\"subscription\"\n          priceId={config.stripe.plans[0].priceId}\n        />\n      </section>\n    </main>\n  );\n}\n"
     },
     "complexText_5": [
       {

@@ -25,7 +25,7 @@
     ],
     "codeSnippet_1": {
       "title": "next.config.js",
-      "codes": "\n            async rewrites() {\n            return [\n            {\n                source: \"/plausible/js/script.js\",\n                destination: \"https://plausible.io/js/script.js\",\n            },\n            {\n                source: \"/plausible/api/event\",\n                destination: \"https://plausible.io/api/event\",\n            },\n            ];\n        }\n            "
+      "codes": "async rewrites() {\n    return [\n      {\n        source: \"/plausible/js/script.js\",\n        destination: \"https://plausible.io/js/script.js\",\n      },\n      {\n        source: \"/plausible/api/event\",\n        destination: \"https://plausible.io/api/event\",\n      },\n    ];\n}"
     },
     "complexText_3": [
       {
@@ -43,7 +43,7 @@
     ],
     "codeSnippet_2": {
       "title": "layout.js",
-      "codes": "\n    <script\n    defer\n    data-domain=\"YOUR_DOMAIN\"\n    data-api=\"/plausible/api/event\"\n    src=\"/plausible/js/script.js\"\n    ></script>\n    "
+      "codes": "<script\n    defer\n    data-domain=\"YOUR_DOMAIN\"\n    data-api=\"/plausible/api/event\"\n    src=\"/plausible/js/script.js\"\n  ></script>"
     },
     "complexText_4": [
       {

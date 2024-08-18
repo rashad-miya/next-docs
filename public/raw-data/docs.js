@@ -42,14 +42,21 @@ const data = {
                 "content": "one-by-one:"
             },
         ],
-        "localServer_codeSnippet_1": [
-            "git clone https://github.com/Marc-Lou-Org/ship-fast.git [YOUR_APP_NAME]",
-            "cd [YOUR_APP_NAME]",
-            "npm install",
-            "git remote remove origin",
-            "npm run dev",
-
-        ],
+        "localServer_codeSnippet_1": {
+            "title": "terminal",
+            "codes": `git clone https://github.com/Marc-Lou-Org/ship-fast.git [YOUR_APP_NAME]
+cd [YOUR_APP_NAME]
+npm install
+git remote remove origin
+npm run dev`,
+"codes_ts": `
+git clone https://github.com/Marc-Lou-Org/ship-fast-ts.git [YOUR_APP_NAME]
+cd [YOUR_APP_NAME]
+npm install
+git remote remove origin
+npm run dev
+`
+        },
 
         "localServer_highlightedNote_1": [
             {
@@ -84,9 +91,10 @@ const data = {
                 "content": ".env.local"
             },
         ],
-        "localServer_codeSnippet_2": [
-            "mv .env.example .env.local",
-        ],
+        "localServer_codeSnippet_2": {
+            "title": "terminal",
+            "codes": `mv .env.example .env.local `
+        },
 
         "localServer_complexText_3": [
             {
@@ -204,19 +212,18 @@ const data = {
             },
         ],
 
-        "env_codeSnippet": [
-            "NEXTAUTH_URL=http://localhost:3000",
-            "NEXTAUTH_SECRET=uhf3874y7fh387u87653947u4rh9394hf",
-            "GOOGLE_ID=",
-            "GOOGLE_SECRET=",
-            "EMAIL_SERVER=",
-            "MAILGUN_API_KEY=",
-            "MONGODB_URI=",
-            "STRIPE_PUBLIC_KEY=",
-            "STRIPE_SECRET_KEY=",
-            "STRIPE_WEBHOOK_SECRET=",
-
-        ],
+        "env_codeSnippet": {
+            "title": "env.local",
+            "codes": `NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=uhf3874y7fh387u87653947u4rh9394hf
+GOOGLE_ID=
+GOOGLE_SECRET=
+MONGODB_URI=
+EMAIL_SERVER=
+MAILGUN_API_KEY=
+STRIPE_PUBLIC_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=`},
 
         "goNext_complexTex": [
             {
@@ -276,15 +283,23 @@ const data = {
                 "content": "one-by-one:"
             },
         ],
-        "localServer_codeSnippet_1": [
-            "git clone https://github.com/Marc-Lou-Org/ship-fast.git [YOUR_APP_NAME]",
-            "cd [YOUR_APP_NAME]",
-            "git checkout supabase",
-            "npm install",
-            "git remote remove origin",
-            "npm run dev",
-
-        ],
+        "localServer_codeSnippet_1": {
+            "title": "terminal",
+            "codes": `git clone https://github.com/Marc-Lou-Org/ship-fast.git [YOUR_APP_NAME]
+cd [YOUR_APP_NAME]
+git checkout supabase
+npm install
+git remote remove origin
+npm run dev`,
+            "codes_ts": `
+git clone https://github.com/Marc-Lou-Org/ship-fast-ts.git [YOUR_APP_NAME]
+cd [YOUR_APP_NAME]
+git checkout supabase
+npm install
+git remote remove origin
+npm run dev
+`
+        },
 
         "localServer_highlightedNote_1": [
             {
@@ -326,9 +341,10 @@ const data = {
                 "content": ".env.local"
             },
         ],
-        "localServer_codeSnippet_2": [
-            "mv .env.example .env.local",
-        ],
+        "localServer_codeSnippet_2": {
+            "title": "terminal",
+            "codes": `mv .env.example .env.local`
+        },
 
         "localServer_complexText_3": [
             {
@@ -462,21 +478,17 @@ const data = {
             },
         ],
 
-        "env_codeSnippet": [
-            "NEXTAUTH_URL=http://localhost:3000",
-            "NEXTAUTH_SECRET=uhf3874y7fh387u87653947u4rh9394hf",
-            "GOOGLE_ID=",
-            "GOOGLE_SECRET=",
-            "EMAIL_SERVER=",
-            "MAILGUN_API_KEY=",
-            "NEXT_PUBLIC_SUPABASE_URL=",
-            "NEXT_PUBLIC_SUPABASE_ANON_KEY=",
-            "SUPABASE_SERVICE_ROLE_KEY=",
-            "STRIPE_PUBLIC_KEY=",
-            "STRIPE_SECRET_KEY=",
-            "STRIPE_WEBHOOK_SECRET=",
-
-        ],
+        "env_codeSnippet": {
+            "title": "env.local",
+            "codes": `NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+EMAIL_SERVER=
+MAILGUN_API_KEY=
+STRIPE_PUBLIC_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=`,
+        },
 
         "goNext_complexTex": [
             {

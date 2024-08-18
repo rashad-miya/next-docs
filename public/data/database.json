@@ -128,7 +128,7 @@
     ],
     "supabase_codeSnippet_1": {
       "title": "SQL Editor",
-      "codes": "\n            \n            create table public.profiles (\n            id uuid not null references auth.users on delete cascade,\n            customer_id text,\n            price_id text,\n            has_access boolean,\n            email text,\n\n            primary key (id)\n            );\n\n            alter table public.profiles enable row level security;\n\n            "
+      "codes": "-- Create the profiles table in the public schema\nCREATE TABLE public.profiles (\n    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,\n    name TEXT,\n    email TEXT,\n    image TEXT,\n    customer_id TEXT,\n    price_id TEXT,\n    has_access BOOLEAN DEFAULT false,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT (now() AT TIME ZONE 'UTC'),\n    updated_at TIMESTAMP WITH TIME ZONE DEFAULT (now() AT TIME ZONE 'UTC')\n);\n\n-- Create a function to update the updated_at timestamp\nCREATE OR REPLACE FUNCTION update_updated_at()\nRETURNS TRIGGER AS $$\nBEGIN\n    NEW.updated_at = (now() AT TIME ZONE 'UTC');\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\n-- Create a trigger to automatically update the updated_at column\nCREATE TRIGGER update_profiles_updated_at\nBEFORE UPDATE ON public.profiles\nFOR EACH ROW\nEXECUTE FUNCTION update_updated_at();\n\n-- Create a function to automatically add a profile on signup\nCREATE OR REPLACE FUNCTION public.handle_new_user() \nRETURNS TRIGGER AS $$\nBEGIN\n  INSERT INTO public.profiles (id, email, name, image, created_at, updated_at)\n  VALUES (\n    NEW.id, \n    NEW.email, \n    COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name'), \n    NEW.raw_user_meta_data->>'avatar_url',\n    (now() AT TIME ZONE 'UTC'), \n    (now() AT TIME ZONE 'UTC')\n  );\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql SECURITY DEFINER;\n\n-- Create a trigger to call the handle_new_user function on signup\nCREATE TRIGGER on_auth_user_created\n  AFTER INSERT ON auth.users\n  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();\n"
     },
     "supabase_complexText_2": [
       {
@@ -144,9 +144,10 @@
         "content": "table and add 2 RLS policies:"
       }
     ],
-    "supabase_plainText_1": "- Enable read access for authenticated users only",
-    "supabase_plainText_2": "- Enable insert access for authenticated users only",
-    "supabase_code_screenshot_url": "https://shipfa.st/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsupabase_rls_helper.c7a6cd10.jpg&w=3840&q=75",
+    "supabase_codeSnippet_2": {
+      "title": "SQL Editor",
+      "codes": "-- Enable Row Level Security\nALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;\n\n-- Create a policy to allow users to read their own data\nCREATE POLICY read_own_profile_data ON public.profiles\nFOR SELECT\nUSING (auth.uid() = id);\n\n-- Create a policy to allow users to update their own data\nCREATE POLICY update_own_profile_data ON public.profiles\nFOR UPDATE\nUSING (auth.uid() = id);\n\n-- Create a policy to allow users to insert their own data\nCREATE POLICY insert_own_profile_data ON public.profiles\nFOR INSERT\nWITH CHECK (auth.uid() = id);\n\n-- Create a policy to allow users to delete their own data\nCREATE POLICY delete_own_profile_data ON public.profiles\nFOR DELETE\nUSING (auth.uid() = id);\n"
+    },
     "supabase_complexText_3": [
       {
         "type": "text",
@@ -169,9 +170,9 @@
         "content": "and add a RLS policy with insert access for anyone:"
       }
     ],
-    "supabase_codeSnippet_2": {
+    "supabase_codeSnippet_3": {
       "title": "SQL Editor",
-      "codes": "\n            create table public.leads (\n            id uuid default gen_random_uuid(),\n            email text,\n            created_at timestamp with time zone default timezone('utc'::text, now()) not null,\n\n            primary key (id)\n            );\n\n            alter table public.leads enable row level security;\n\n            "
+      "codes": "-- Enable Row Level Security\nALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;\n\n-- Create a policy to allow users to read their own data\nCREATE POLICY read_own_profile_data ON public.profiles\nFOR SELECT\nUSING (auth.uid() = id);\n\n-- Create a policy to allow users to update their own data\nCREATE POLICY update_own_profile_data ON public.profiles\nFOR UPDATE\nUSING (auth.uid() = id);\n\n-- Create a policy to allow users to insert their own data\nCREATE POLICY insert_own_profile_data ON public.profiles\nFOR INSERT\nWITH CHECK (auth.uid() = id);\n\n-- Create a policy to allow users to delete their own data\nCREATE POLICY delete_own_profile_data ON public.profiles\nFOR DELETE\nUSING (auth.uid() = id);\n"
     }
   }
 }

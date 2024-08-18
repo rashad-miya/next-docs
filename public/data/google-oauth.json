@@ -40,7 +40,7 @@
     ],
     "next_codeSnippet_1": {
       "title": ".env.local",
-      "codes": "\n            NEXTAUTH_URL=http://localhost:3000\nNEXTAUTH_SECRET=4348yhu34h3ui4ofjndfsdfeirh4b637u5sfd3\n            "
+      "codes": "NEXTAUTH_URL=http://localhost:3000\nNEXTAUTH_SECRET=4348yhu34h3ui4ofjndfsdfeirh4b637u5sfd3\n            "
     },
     "next_highlightedNote_1": [
       {

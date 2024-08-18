@@ -93,9 +93,7 @@ const data = {
 
         "next_codeSnippet_1": {
             "title": "terminal",
-            "codes": `
-npm install @upstash/redis @upstash/ratelimit
-            `
+            "codes": `npm install @upstash/redis @upstash/ratelimit`
         },
 
         "next_complexText_4": [
@@ -124,9 +122,7 @@ npm install @upstash/redis @upstash/ratelimit
 
         "next_codeSnippet_2": {
             "title": "/middleware.js",
-            "codes": `
-
-            import { NextResponse } from "next/server";
+            "codes": `import { NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
@@ -217,8 +213,7 @@ export const config = {
 
         "next_codeSnippet_3": {
             "title": "/app/blocked/page.js",
-            "codes": `
-"use client";
+            "codes": `"use client";
 
 import config from "@/config";
 import { signIn } from "next-auth/react";
@@ -365,9 +360,7 @@ export default Blocked;
 
         "supabase_codeSnippet_1": {
             "title": "terminal",
-            "codes": `
-npm install @upstash/redis @upstash/ratelimit
-            `
+            "codes": `npm install @upstash/redis @upstash/ratelimit`
         },
 
         "supabase_complexText_5": [
@@ -387,8 +380,7 @@ npm install @upstash/redis @upstash/ratelimit
 
         "supabase_codeSnippet_2": {
             "title": "/middleware.js",
-            "codes": `
-            import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+            "codes": `import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
@@ -490,8 +482,7 @@ export default async function middleware(req: NextRequest) {
 
         "supabase_codeSnippet_3": {
             "title": "/app/blocked/page.js",
-            "codes": `
-"use client";
+            "codes": `"use client";
 
 import config from "@/config";
 import React from "react";

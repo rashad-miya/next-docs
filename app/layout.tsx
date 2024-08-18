@@ -31,7 +31,7 @@ export default function RootLayout({
           <div className="">
             <Sidebar />
           </div>
-          <div className="w-full overflow-y-auto min-h-screen bg-base-200 sm:pl-64 pb-12">
+          <div className="w-full overflow-y-auto scrollbar-large min-h-screen bg-base-200 sm:pl-64 pb-12">
             {children}
           </div>
         </div>

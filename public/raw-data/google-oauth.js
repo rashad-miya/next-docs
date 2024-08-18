@@ -47,8 +47,7 @@ const data = {
 
         "next_codeSnippet_1": {
             "title": ".env.local",
-            "codes": `
-            NEXTAUTH_URL=http://localhost:3000
+            "codes": `NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=4348yhu34h3ui4ofjndfsdfeirh4b637u5sfd3
             `
         },

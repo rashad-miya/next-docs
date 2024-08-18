@@ -74,40 +74,40 @@ const data = {
     "next_codeSnippet_1": {
       "title": "/app/user-profile/page.js",
       "codes": `"use client"
-          import { useState } from "react";
-          import apiClient from "@/libs/api";
 
-          const UserProfile = () => {
-            const [isLoading, setIsLoading] = useState(false);
+import { useState } from "react";
+import apiClient from "@/libs/api";
 
-            const saveUser = async () => {
-              setIsLoading(true);
+const UserProfile = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
-              try {
-                const { data } = await apiClient.post("/user", {
-                  email: "new@gmail.com",
-                });
+  const saveUser = async () => {
+    setIsLoading(true);
 
-                console.log(data);
-              } catch (e) {
-                console.error(e?.message);
-              } finally {
-                setIsLoading(false);
-              }
-            };
+    try {
+      const { data } = await apiClient.post("/user", {
+        email: "new@gmail.com",
+      });
 
-            return (
-              <button className="btn btn-primary" onClick={() => saveUser()}>
-                {isLoading && (
-                  <span className="loading loading-spinner loading-sm"></span>
-                )}
-                Save
-              </button>
-            );
-          };
+      console.log(data);
+    } catch (e) {
+      console.error(e?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-          export default UserProfile;
-            `
+  return (
+    <button className="btn btn-primary" onClick={() => saveUser()}>
+      {isLoading && (
+        <span className="loading loading-spinner loading-sm"></span>
+      )}
+      Save
+    </button>
+  );
+};
+
+export default UserProfile; `
     },
     "next_complexText_3": [
       {
@@ -127,50 +127,49 @@ const data = {
     "next_codeSnippet_2": {
       "title": "/app/api/user/route.js",
       "codes": `import { NextResponse } from "next/server";
-        import { getServerSession } from "next-auth/next";
-        import { authOptions } from "@/libs/next-auth";
-        import connectMongo from "@/libs/mongoose";
-        import User from "@/models/User";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/libs/next-auth";
+import connectMongo from "@/libs/mongoose";
+import User from "@/models/User";
 
-        export async function POST(req) {
-          const session = await getServerSession(authOptions);
+export async function POST(req) {
+  const session = await getServerSession(authOptions);
 
-          if (session) {
-            await connectMongo();
+  if (session) {
+    await connectMongo();
 
-            const { id } = session.user;
+    const { id } = session.user;
 
-            const body = await req.json();
+    const body = await req.json();
 
-            if (!body.email) {
-              return NextResponse.json({ error: "Email is required" }, { status: 400 });
-            }
+    if (!body.email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
 
-            try {
-              const user = await User.findById(id);
+    try {
+      const user = await User.findById(id);
 
-              if (!user) {
-                return NextResponse.json({ error: "User not found" }, { status: 404 });
-              }
+      if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 });
+      }
 
-              user.email = body.email;
-              await user.save();
+      user.email = body.email;
+      await user.save();
 
-              return NextResponse.json({ data: user }, { status: 200 });
-            } catch (e) {
-              console.error(e);
-              return NextResponse.json(
-                { error: "Something went wrong" },
-                { status: 500 }
-              );
-            }
-          } else {
-            // Not Signed in
-            NextResponse.json({ error: "Not signed in" }, { status: 401 });
-          }
-        }
-
-            `
+      return NextResponse.json({ data: user }, { status: 200 });
+    } catch (e) {
+      console.error(e);
+      return NextResponse.json(
+        { error: "Something went wrong" },
+        { status: 500 }
+      );
+    }
+  } else {
+    // Not Signed in
+    NextResponse.json({ error: "Not signed in" }, { status: 401 });
+  }
+}
+`
     },
 
   },
@@ -282,8 +281,7 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-            `
+`
     },
     "supabase_complexText_3": [
       {
@@ -302,45 +300,43 @@ export default UserProfile;
 
     "supabase_codeSnippet_2": {
       "title": "/app/api/user/route.js",
-      "codes": `import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-        import { NextResponse } from "next/server";
-        import { cookies } from "next/headers";
+      "codes": `import { createClient } from "@/libs/supabase/server";
+import { NextResponse } from "next/server";
 
-        export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
-        export async function POST(req) {
-          const supabase = createRouteHandlerClient({ cookies });
-          const { data } = await supabase.auth.getSession();
-          const { session } = data;
+export async function POST(req) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-          if (session) {
-            const body = await req.json();
+  if (user) {
+    const body = await req.json();
 
-            if (!body.email) {
-              return NextResponse.json({ error: "Email is required" }, { status: 400 });
-            }
+    if (!body.email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
 
-            try {
-              // This call will fail if you haven't created a table named "users" in your database
-              const { data } = await supabase
-                .from("users")
-                .insert({ email: body.email })
-                .select();
+    try {
+      // This call will fail if you haven't created a table named "users" in your database
+      const { data } = await supabase
+        .from("users")
+        .insert({ email: body.email })
+        .select();
 
-              return NextResponse.json({ data }, { status: 200 });
-            } catch (e) {
-              console.error(e);
-              return NextResponse.json(
-                { error: "Something went wrong" },
-                { status: 500 }
-              );
-            }
-          } else {
-            // Not Signed in
-            NextResponse.json({ error: "Not signed in" }, { status: 401 });
-          }
-        }
-            `
+      return NextResponse.json({ data }, { status: 200 });
+    } catch (e) {
+      console.error(e);
+      return NextResponse.json(
+        { error: "Something went wrong" },
+        { status: 500 }
+      );
+    }
+  } else {
+    // Not Signed in
+    NextResponse.json({ error: "Not signed in" }, { status: 401 });
+  }
+}
+`
     },
 
   }

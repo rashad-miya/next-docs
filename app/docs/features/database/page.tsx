@@ -99,9 +99,15 @@ const page = () => {
 
                 {pageContent.supabase_plainText_1 && (<PlainText content={pageContent.supabase_plainText_1} className='py-4 text-gray-400' />)}
                 {pageContent.supabase_plainText_2 && (<PlainText content={pageContent.supabase_plainText_2} className='py-4 text-gray-400' />)}
-                {pageContent.supabase_code_screenshot_url && (
-                    <img srcSet={pageContent.supabase_code_screenshot_url} alt="Supabase RSL policies" className="rounded w-full" />
-                )}
+              
+
+                {
+                    pageContent.supabase_codeSnippet_2 && (
+                        <div className="pb-10">
+                            <CodeExample codeString={pageContent.supabase_codeSnippet_2.codes} language='jsx' title={pageContent.supabase_codeSnippet_2.title} />
+                        </div>
+                    )
+                }
 
 
                 {pageContent.next_complexText_3 && (<ComplexText content={pageContent.next_complexText_3} className='py-4 text-gray-400' />)}
@@ -109,9 +115,9 @@ const page = () => {
 
 
                 {
-                    pageContent.supabase_codeSnippet_2 && (
+                    pageContent.supabase_codeSnippet_3 && (
                         <div className="pb-10">
-                            <CodeExample codeString={pageContent.supabase_codeSnippet_2.codes} language='jsx' title={pageContent.supabase_codeSnippet_2.title} />
+                            <CodeExample codeString={pageContent.supabase_codeSnippet_3.codes} language='jsx' title={pageContent.supabase_codeSnippet_3.title} />
                         </div>
                     )
                 }

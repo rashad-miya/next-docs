@@ -63,19 +63,17 @@ const data = {
    "codeSnippet_1": {
             "title": "/app/terms/page.js",
             "codes": `
-            
-            import { getSEOTags } from "@/libs/seo";
-            ...
+import { getSEOTags } from "@/libs/seo";
+...
 
-            export const metadata = getSEOTags({
-            title: "Terms and Conditions | ShipFast",
-            canonicalUrlRelative: "/tos",
-            });
+export const metadata = getSEOTags({
+  title: "Terms and Conditions | ShipFast",
+  canonicalUrlRelative: "/tos",
+});
 
-            export default async function TermsAndConditions() {
-            ...
-
-            `
+export default async function TermsAndConditions() {
+...
+`
         },
 
         "highlightedNote_1": [
@@ -128,24 +126,22 @@ const data = {
    
 "codeSnippet_2": {
             "title": "/app/page.js",
-            "codes": `
-            import { renderSchemaTags } from "@/libs/seo";
+            "codes": `import { renderSchemaTags } from "@/libs/seo";
 
-            export default function Page() {
-            return (
-                <>
-                {renderSchemaTags()}
+export default function Page() {
+  return (
+    <>
+      {renderSchemaTags()}
 
-                <main className="flex min-h-screen flex-col items-center justify-center text-center gap-12 p-8">
-                    <h1 className="text-3xl font-extrabold">Ship Fast</h1>
+      <main className="flex min-h-screen flex-col items-center justify-center text-center gap-12 p-8">
+        <h1 className="text-3xl font-extrabold">Ship Fast</h1>
 
-            ...
+...
 
-                </main>
-                </>
-            );
-            }
-            `
+      </main>
+    </>
+  );
+}`
         },
 
         "complexText_3": [

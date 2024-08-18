@@ -88,9 +88,7 @@ const data = {
 
     "stripe_codeSnippet_1": {
       "title": "terminal",
-      "codes": `
-            stripe listen --forward-to localhost:3000/api/webhook/stripe
-            `
+      "codes": `stripe listen --forward-to localhost:3000/api/webhook/stripe`
     },
 
     "stripe_complexText_4": [
@@ -254,21 +252,16 @@ const data = {
 
     "lemon_codeSnippet_1": {
       "title": "terminal",
-      "codes": `
-            npm install @lemonsqueezy/lemonsqueezy.js
-
-            `
+      "codes": `npm install @lemonsqueezy/lemonsqueezy.js`
     },
 
     "lemon_plainText_2": "2. Add the environment variables",
 
     "lemon_codeSnippet_2": {
       "title": "terminal",
-      "codes": `
-        LEMONSQUEEZY_API_KEY=
-        LEMONSQUEEZY_STORE_ID=
-        LEMONSQUEEZY_SIGNING_SECRET=
-            `
+      "codes": `LEMONSQUEEZY_API_KEY=
+LEMONSQUEEZY_STORE_ID=
+LEMONSQUEEZY_SIGNING_SECRET=`
     },
 
     "lemon_complexText_1": [
@@ -346,43 +339,43 @@ const data = {
     "lemon_codeSnippet_3": {
       "title": "config.js",
       "codes": `lemonsqueezy: {
-      // Create a product and add multiple variants via your Lemon Squeezy dashboard, then add them here. You can add as many plans as you want, just make sure to add the variantId.
-      plans: [
-      {
-        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
-        variantId:
-          process.env.NODE_ENV === "development"
-            ? "123456"
-            : "456789",
-        //  REQUIRED - Name of the plan, displayed on the pricing page
-        name: "Starter",
-        // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others.
-        description: "Perfect for small projects",
-        // The price you want to display, the one user will be charged on Lemon Squeezy
-        price: 99,
-        // If you have an anchor price (i.e. $149) that you want to display crossed out, put it here. Otherwise, leave it empty.
-        priceAnchor: 149,
-        features: [
-          {
-            name: "NextJS boilerplate",
-          },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
-        ],
-      },
-      {
-        variantId:
-          process.env.NODE_ENV === "development"
-            ? "123456"
-            : "456789",
-        // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true.
-        isFeatured: true,
-        name: "Advanced",
-        description: "You need more power",
-        price: 149,
-        priceAnchor: 299,
-        features: [
+  // Create a product and add multiple variants via your Lemon Squeezy dashboard, then add them here. You can add as many plans as you want, just make sure to add the variantId.
+  plans: [
+    {
+      // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
+      variantId:
+        process.env.NODE_ENV === "development"
+          ? "123456"
+          : "456789",
+      //  REQUIRED - Name of the plan, displayed on the pricing page
+      name: "Starter",
+      // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others.
+      description: "Perfect for small projects",
+      // The price you want to display, the one user will be charged on Lemon Squeezy
+      price: 99,
+      // If you have an anchor price (i.e. $149) that you want to display crossed out, put it here. Otherwise, leave it empty.
+      priceAnchor: 149,
+      features: [
+        {
+          name: "NextJS boilerplate",
+        },
+        { name: "User oauth" },
+        { name: "Database" },
+        { name: "Emails" },
+      ],
+    },
+    {
+      variantId:
+        process.env.NODE_ENV === "development"
+          ? "123456"
+          : "456789",
+      // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true.
+      isFeatured: true,
+      name: "Advanced",
+      description: "You need more power",
+      price: 149,
+      priceAnchor: 299,
+      features: [
         {
           name: "NextJS boilerplate",
         },
@@ -394,8 +387,7 @@ const data = {
       ],
     },
   ],
-},
-            `
+},`
     },
     "lemon_complexText_5": [
       {
@@ -414,20 +406,19 @@ const data = {
 
     "lemon_codeSnippet_4": {
       "title": "types/config.ts",
-      "codes": `
-            lemonsqueezy: {
-        plans: {
-            isFeatured?: boolean;
-            variantId: string;
-            name: string;
-            description?: string;
-            price: number;
-            priceAnchor?: number;
-            features: {
-            name: string;
-            }[];
-        }[];
-        };`
+      "codes": `lemonsqueezy: {
+  plans: {
+    isFeatured?: boolean;
+    variantId: string;
+    name: string;
+    description?: string;
+    price: number;
+    priceAnchor?: number;
+    features: {
+      name: string;
+    }[];
+  }[];
+};`
     },
 
     "lemon_complexText_6": [
@@ -447,10 +438,8 @@ const data = {
 
     "lemon_codeSnippet_5": {
       "title": "models/user.js",
-      "codes": `
-            import mongoose from "mongoose";
+      "codes": `import mongoose from "mongoose";
 import toJSON from "./plugins/toJSON";
-
 // USER SCHEMA
 const userSchema = new mongoose.Schema(
   {
@@ -513,8 +502,7 @@ export default mongoose.models.User || mongoose.model("User", userSchema);
 
     "lemon_codeSnippet_6": {
       "title": "components/Pricing.js",
-      "codes": `
-            import config from "@/config";
+      "codes": `import config from "@/config";
 import ButtonCheckout from "./ButtonCheckout";
 
 // <Pricing/> displays the pricing plans for your app
@@ -641,8 +629,7 @@ export default Pricing;
 
     "lemon_codeSnippet_7": {
       "title": "components/ButtonCheckout.js",
-      "codes": `
-            "use client";
+      "codes": `"use client";
 
 import { useState } from "react";
 import apiClient from "@/libs/api";
@@ -697,8 +684,7 @@ const ButtonCheckout = ({ variantId }) => {
 
 export default ButtonCheckout;
             `,
-      "codes_ts": `
-            "use client";
+      "codes_ts": `"use client";
 
 import { useState } from "react";
 import apiClient from "@/libs/api";
@@ -915,8 +901,7 @@ const ButtonAccount = () => {
 };
 
 export default ButtonAccount;`,
-      "codes_ts": `
-            /* eslint-disable @next/next/no-img-element */
+      "codes_ts": `/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from "react";
@@ -1080,8 +1065,7 @@ export default ButtonAccount;
 
     "lemon_codeSnippet_9": {
       "title": "libs/lemonsqueezy.js",
-      "codes": `
-            import {
+      "codes": `import {
   createCheckout,
   getCustomer,
   lemonSqueezySetup,
@@ -1150,8 +1134,7 @@ export const createCustomerPortal = async ({
   }
 };
             `,
-      "codes_ts": `
-            import {
+      "codes_ts": `import {
   NewCheckout,
   createCheckout,
   getCustomer,
@@ -1247,8 +1230,7 @@ export const createCustomerPortal = async ({
 
     "lemon_codeSnippet_10": {
       "title": "app/api/lemonsqueezy/create-checkout/route.js",
-      "codes": `
-            import { createLemonSqueezyCheckout } from "@/libs/lemonsqueezy";
+      "codes": `import { createLemonSqueezyCheckout } from "@/libs/lemonsqueezy";
 import connectMongo from "@/libs/mongoose";
 import { authOptions } from "@/libs/next-auth";
 import User from "@/models/User";
@@ -1299,8 +1281,7 @@ export async function POST(req) {
 }
 
             `,
-      "codes_ts": `
-            import { createLemonSqueezyCheckout } from "@/libs/lemonsqueezy";
+      "codes_ts": `import { createLemonSqueezyCheckout } from "@/libs/lemonsqueezy";
 import connectMongo from "@/libs/mongoose";
 import { authOptions } from "@/libs/next-auth";
 import User from "@/models/User";
@@ -1362,8 +1343,7 @@ export async function POST(req: NextRequest) {
 
     "codeSnippet_11": {
       "title": "app/api/lemonsqueezy/create-portal/route.js",
-      "codes": `
-            import { NextResponse } from "next/server";
+      "codes": `import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
@@ -1409,8 +1389,7 @@ export async function POST() {
 }
 
             `,
-      "codes_ts": `
-            import { NextResponse } from "next/server";
+      "codes_ts": `import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
@@ -1480,8 +1459,7 @@ export async function POST() {
 
     "lemon_codeSnippet_12": {
       "title": "pages/api/webhook/lemonsqueezy/route.js",
-      "codes": `
-            import { NextResponse } from "next/server";
+      "codes": `import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import connectMongo from "@/libs/mongoose";
 import crypto from "crypto";
@@ -1599,8 +1577,7 @@ export async function POST(req) {
 }
 
             `,
-      "codes_ts": `
-            import { NextResponse, NextRequest } from "next/server";
+      "codes_ts": `import { NextResponse, NextRequest } from "next/server";
 import { headers } from "next/headers";
 import connectMongo from "@/libs/mongoose";
 import crypto from "crypto";
